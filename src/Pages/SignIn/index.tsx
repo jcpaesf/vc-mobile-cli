@@ -63,8 +63,6 @@ const SignIn: React.FC = () => {
         if (!granted) {
             const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
-            
-
             if (status !== 'granted') {
                 Alert.alert(
                     'Notificações',

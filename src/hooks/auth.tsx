@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useState, useContext, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../services/api';
+import { AxiosResponse } from 'axios';
 
 interface SignInCredentials {
     email: string;
@@ -14,11 +15,17 @@ interface User {
     avatar: string;
 }
 
+interface Edit {
+    email: string;
+    password: string;
+}
+
 interface AuthContextState {
     user: User;
     loadingApp: boolean;
     signIn(credentials: SignInCredentials): Promise<void>;
     signOut(): Promise<void>;
+    editUser(edit: Edit): Promise<void>
 }
 
 interface AuthState {
@@ -83,8 +90,21 @@ export const AuthProvider: React.FC = ({ children }) => {
         setData({} as AuthState);
     }, []);
 
+    const editUser = useCallback(async ({ email, password }): Promise<void> => {
+        console.log(email, password);
+        
+        const response: AxiosResponse<User> = await api.patch('/users/password', {
+            email,
+            password
+        });
+
+        const user = response.data;
+
+        setData({ user, token: data.token });
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ user: data.user, loadingApp, signIn, signOut }}>
+        <AuthContext.Provider value={{ user: data.user, loadingApp, signIn, signOut, editUser }}>
             {children}
         </AuthContext.Provider>
     )

@@ -10,6 +10,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../../hooks/auth';
 import { AxiosResponse } from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
 
 import Search from '../../components/Search';
 import Backdrop from '../../components/Backdrop';
@@ -62,14 +64,20 @@ interface ResponseProductUser {
     content: number;
 }
 
+interface SearchFormData {
+    search: string;
+}
+
 const Home: React.FC = () => {
     const { navigate } = useNavigation();
     const [productsList, setProductsList] = useState<ResponseProductUser[]>([]);
     const [productsUser, setProductsUser] = useState<ResponseProductUser[]>([]);
+    const [productsUserFilter, setProductsUserFilter] = useState<ResponseProductUser[]>([]);
     const [opacityContainer, setOpacityContainer] = useState(false);
     const [listView, setListView] = useState(false);
     const scrollX = useRef(new Animated.Value(0)).current;
     const { user, signOut } = useAuth();
+    const formRef = useRef<FormHandles>(null);
 
     useEffect(() => {
         async function loadProducts() {
@@ -83,7 +91,9 @@ const Home: React.FC = () => {
                 {
                     id: 'empty-right', product_id: '', product: {} as Product, tag: [], content: 0
                 }
-            ])
+            ]);
+
+            setProductsUserFilter(response.data);
         }
 
         loadProducts();
@@ -99,13 +109,36 @@ const Home: React.FC = () => {
 
     const handleSignOut = useCallback(async () => {
         navigate('Profile');
-
-        //await signOut();
     }, [signOut])
 
-    const handleSearch = useCallback((text: string) => {
-
-    }, []);
+    const handleSearch = useCallback((data: SearchFormData) => {
+        if (data.search) {
+            if (!listView) {
+                setProductsUser([
+                    {
+                        id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
+                    },
+                    ...productsUserFilter.filter(prd => prd.product.subtitle.toLowerCase().indexOf(data.search.toLowerCase()) !== -1),
+                    {
+                        id: 'empty-right', product_id: '', product: {} as Product, tag: [], content: 0
+                    }
+                ]);
+            } else {
+                setProductsList([...productsUserFilter.filter(prd => prd.product.subtitle.toLowerCase().indexOf(data.search.toLowerCase()) !== -1)])
+            }
+        } else {
+            setProductsUser([
+                {
+                    id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
+                },
+                ...productsUserFilter,
+                {
+                    id: 'empty-right', product_id: '', product: {} as Product, tag: [], content: 0
+                }
+            ]);
+            setProductsList([...productsUserFilter]);
+        }
+    }, [listView, setProductsList, productsUserFilter, setProductsUser]);
 
     return (
         <Container listView={listView}>
@@ -129,7 +162,15 @@ const Home: React.FC = () => {
 
                 <TextTitle>Minha carteira</TextTitle>
                 <View style={{ paddingHorizontal: 25, marginBottom: 5 }}>
-                    <Search onChangeText={handleSearch} />
+                    <Form ref={formRef} onSubmit={handleSearch}>
+                        <Search
+                            name="search"
+                            returnKeyType="send"
+                            onSubmitEditing={() => {
+                                formRef.current?.submitForm();
+                            }}
+                        />
+                    </Form>
                 </View>
             </ContainerHeader>
 

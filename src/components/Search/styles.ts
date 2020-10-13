@@ -16,5 +16,6 @@ export const TextInput = styled.TextInput`
     flex: 1;
     color: #FFF;
     font-size: 16px;
+    height: 50px;
     font-family: 'MPLUSRounded1c-Regular';
 `;

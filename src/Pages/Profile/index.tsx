@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BorderlessButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
@@ -23,7 +23,7 @@ import {
 } from './styles';
 
 const Profile: React.FC = () => {
-    const { goBack } = useNavigation();
+    const { goBack, navigate } = useNavigation();
     const { user, signOut } = useAuth();
 
     const handleSignOut = useCallback(async () => {
@@ -57,8 +57,7 @@ const Profile: React.FC = () => {
 
             <TextConfig>Configurações</TextConfig>
 
-
-            <BorderlessButton>
+            <BorderlessButton onPress={() => { navigate('EditProfile') }}>
                 <ContainerOptions>
                     <Feather name="user" size={25} color="#FFF" />
                     <TextOption>Dados da conta</TextOption>

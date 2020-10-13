@@ -51,6 +51,18 @@ const SignUp: React.FC = () => {
 				confirmpassword: Yup.string().min(6, 'Mínimo 6 dígitos')
 			});
 
+			if (data.password && data.password !== data.confirmpassword) {
+				Alert.alert(
+					'Mensagem',
+					'Senhas não conferem.',
+					[
+						{ text: "OK" }
+					]
+				);
+
+				return;
+			}
+
 			await schema.validate(data, {
 				abortEarly: false
 			});
