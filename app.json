@@ -1,0 +1,9 @@
+{
+  "name": "mobile",
+  "displayName": "mobile",
+  "android": {
+    "useNextNotificationsApi": true,
+    "package": "com.mobile",
+    "versionCode": 1
+  }
+}

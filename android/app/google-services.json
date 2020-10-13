@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "619088800724",
+    "firebase_url": "https://mobile-580ec.firebaseio.com",
+    "project_id": "mobile-580ec",
+    "storage_bucket": "mobile-580ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619088800724:android:7988ce2cae98a242010441",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619088800724-134eg4iicp4ru31fr7032dlks4i35ipl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCHbgdqZZo5EaYLN3uBnjDK-CKLN1XEsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619088800724-134eg4iicp4ru31fr7032dlks4i35ipl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
