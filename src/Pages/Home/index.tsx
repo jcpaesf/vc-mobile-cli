@@ -30,6 +30,7 @@ import {
 
 import logoImg from '../../assets/images/logoVc.png';
 import ProductListItem from '../../components/ProductItemList';
+import InputNfc from '../../components/InputNfc';
 
 const { width } = Dimensions.get('window');
 
@@ -74,15 +75,18 @@ const Home: React.FC = () => {
     const [productsUser, setProductsUser] = useState<ResponseProductUser[]>([]);
     const [productsUserFilter, setProductsUserFilter] = useState<ResponseProductUser[]>([]);
     const [opacityContainer, setOpacityContainer] = useState(false);
+    const [visibleNfc, setVisibleNfc] = useState(false);
     const [listView, setListView] = useState(false);
     const scrollX = useRef(new Animated.Value(0)).current;
     const { user, signOut } = useAuth();
     const formRef = useRef<FormHandles>(null);
+    const formNfc = useRef<FormHandles>(null);
+    const [none, setNone] = useState(false);
 
     useEffect(() => {
         async function loadProducts() {
             const response: AxiosResponse<ResponseProductUser[]> = await api.get('/productsuser');
-
+            
             setProductsUser([
                 {
                     id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
@@ -101,7 +105,7 @@ const Home: React.FC = () => {
 
     const handleSetViewList = useCallback(() => {
         setListView(!listView);
-
+        
         setProductsList(productsUser.filter(product => {
             return product.product_id;
         }));
@@ -140,6 +144,10 @@ const Home: React.FC = () => {
         }
     }, [listView, setProductsList, productsUserFilter, setProductsUser]);
 
+    const handleAddNfc = useCallback(() => {
+
+    }, []);
+
     return (
         <Container listView={listView}>
             {!listView && <Backdrop products={productsUser} scrollX={scrollX} />}
@@ -147,18 +155,35 @@ const Home: React.FC = () => {
             <ContainerHeader opacityContainer={opacityContainer}>
                 <Header>
                     <TouchableOpacity onPress={handleSignOut}>
-                        <Avatar source={{ uri: `${baseURL}/files/${user.avatar}` }} resizeMode="contain" />
+                        <Avatar source={{ uri: `${baseURL}/files/${user.avatar}` }} />
                     </TouchableOpacity>
                     <Logo source={logoImg} resizeMode="contain" />
                     <ContainerOptions>
                         <TouchableOpacity onPress={handleSetViewList}>
                             <Feather name={!listView ? "list" : "layers"} size={30} color="#FFF" style={{ paddingRight: 20 }} />
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Feather name="plus-circle" size={30} color="#FFF" />
+                        <TouchableOpacity onPress={() => { setVisibleNfc(!visibleNfc) }}>
+                            {visibleNfc ?
+                                <Feather name="minus-circle" size={30} color="#FFF" />
+                                :
+                                <Feather name="plus-circle" size={30} color="#FFF" />
+                            }
                         </TouchableOpacity>
                     </ContainerOptions>
                 </Header>
+
+                {visibleNfc &&
+                    <Form ref={formNfc} onSubmit={handleAddNfc} style={{ marginHorizontal: 25 }}>
+                        <InputNfc
+                            name="nfc"
+                            placeholder="Informe o NFC do produto"
+                            returnKeyType="send"
+                            onSubmitEditing={() => {
+                                formNfc.current?.submitForm();
+                            }}
+                        />
+                    </Form>
+                }
 
                 <TextTitle>Minha carteira</TextTitle>
                 <View style={{ paddingHorizontal: 25, marginBottom: 5 }}>

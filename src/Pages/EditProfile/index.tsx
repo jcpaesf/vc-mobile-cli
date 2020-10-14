@@ -71,9 +71,6 @@ const EditProfile: React.FC = () => {
                 ]
             );
         } catch (e) {
-
-            console.log(e);
-
             if (e instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(e);
 
@@ -100,7 +97,7 @@ const EditProfile: React.FC = () => {
 
             <TextConfig>Dados da conta</TextConfig>
 
-            <Form ref={formRef} onSubmit={handleEditProfile} style={{ flex: 1 }}>
+            <Form initialData={{ email: user.email }} ref={formRef} onSubmit={handleEditProfile} style={{ flex: 1 }}>
                 <ScrollView>
                     <ContainerEmail>
                         <Input

@@ -26,6 +26,7 @@ interface AuthContextState {
     signIn(credentials: SignInCredentials): Promise<void>;
     signOut(): Promise<void>;
     editUser(edit: Edit): Promise<void>
+    updateUser(user: User): Promise<void>
 }
 
 interface AuthState {
@@ -90,9 +91,16 @@ export const AuthProvider: React.FC = ({ children }) => {
         setData({} as AuthState);
     }, []);
 
+    const updateUser = useCallback(async (user: User) => {
+        await AsyncStorage.setItem('@VsConnect:user', JSON.stringify(user));
+
+        setData({
+            token: data.token,
+            user
+        })
+    }, [setData, data.token]);
+
     const editUser = useCallback(async ({ email, password }): Promise<void> => {
-        console.log(email, password);
-        
         const response: AxiosResponse<User> = await api.patch('/users/password', {
             email,
             password
@@ -104,7 +112,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user: data.user, loadingApp, signIn, signOut, editUser }}>
+        <AuthContext.Provider value={{ user: data.user, loadingApp, signIn, signOut, editUser, updateUser }}>
             {children}
         </AuthContext.Provider>
     )

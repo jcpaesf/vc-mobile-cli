@@ -8,6 +8,7 @@ import Exclusive from '../Pages/Exclusive';
 import Videos from '../Pages/Videos';
 import Profile from '../Pages/Profile';
 import EditProfile from '../Pages/EditProfile';
+import Notifications from '../Pages/Notifications';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -21,6 +22,7 @@ const AppStack: React.FC = () => {
                     <Screen name="Videos" component={Videos} />
                     <Screen name="Profile" component={Profile} />
                     <Screen name="EditProfile" component={EditProfile} />
+                    <Screen name="Notifications" component={Notifications} />
                 </Navigator>
             </ProductProvider>
         </NavigationContainer>

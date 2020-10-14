@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BorderlessButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useAuth } from '../../hooks/auth';
 import { baseURL } from '../../services/api';
+import ImagePicker from 'react-native-image-picker';
+import api from '../../services/api';
 
 import {
     Container,
@@ -24,11 +26,41 @@ import {
 
 const Profile: React.FC = () => {
     const { goBack, navigate } = useNavigation();
-    const { user, signOut } = useAuth();
+    const { user, signOut, updateUser } = useAuth();
 
     const handleSignOut = useCallback(async () => {
         await signOut();
     }, []);
+
+    const handleUpdateAvatar = useCallback(() => {
+        ImagePicker.showImagePicker({
+            title: 'Selecione um avatar',
+            cancelButtonTitle: 'Cancelar',
+            takePhotoButtonTitle: 'Usar câmera',
+            chooseFromLibraryButtonTitle: 'Escolher da galeria'
+        }, (response) => {
+            if (response.didCancel) {
+                return;
+            }
+
+            if (response.error) {
+                Alert.alert('Erro ao atualizar seu avatar.');
+                return;
+            }
+
+            const data = new FormData();
+
+            data.append('avatar', {
+                type: 'image/jpg',
+                name: `${user.id}.jpg`,
+                uri: response.uri
+            });
+
+            api.patch('/users/avatar', data).then(apiResponse => {
+                updateUser(apiResponse.data);
+            });
+        })
+    }, [user.id]);
 
     return (
         <Container>
@@ -38,13 +70,13 @@ const Profile: React.FC = () => {
 
             <Header>
                 <ContainerAvatar>
-                    <Avatar source={{ uri: `${baseURL}/files/${user.avatar}` }} resizeMode='contain' />
+                    <Avatar source={{ uri: `${baseURL}/files/${user.avatar}` }} />
                     {Platform.OS === 'ios' ?
-                        <ButtonAvatar onPress={() => { }}>
+                        <ButtonAvatar onPress={handleUpdateAvatar}>
                             <Ionicons name="ios-add-circle" size={15} color="#FFF" />
                         </ButtonAvatar>
                         :
-                        <ButtonAvatarAndroid onPress={() => { }}>
+                        <ButtonAvatarAndroid onPress={handleUpdateAvatar}>
                             <Ionicons name="ios-add-circle" size={15} color="#FFF" />
                         </ButtonAvatarAndroid>
                     }
@@ -63,7 +95,7 @@ const Profile: React.FC = () => {
                     <TextOption>Dados da conta</TextOption>
                 </ContainerOptions>
             </BorderlessButton>
-            <BorderlessButton>
+            <BorderlessButton onPress={() => { navigate('Notifications') }}>
                 <ContainerOptions>
                     <Feather name="bell" size={25} color="#FFF" />
                     <TextOption>Notificações</TextOption>
