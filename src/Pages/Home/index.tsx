@@ -12,6 +12,7 @@ import { AxiosResponse } from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import NfcManager, { NfcEvents } from 'react-native-nfc-manager';
 
 import Search from '../../components/Search';
 import Backdrop from '../../components/Backdrop';
@@ -81,12 +82,11 @@ const Home: React.FC = () => {
     const { user, signOut } = useAuth();
     const formRef = useRef<FormHandles>(null);
     const formNfc = useRef<FormHandles>(null);
-    const [none, setNone] = useState(false);
 
     useEffect(() => {
         async function loadProducts() {
             const response: AxiosResponse<ResponseProductUser[]> = await api.get('/productsuser');
-            
+
             setProductsUser([
                 {
                     id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
@@ -105,7 +105,7 @@ const Home: React.FC = () => {
 
     const handleSetViewList = useCallback(() => {
         setListView(!listView);
-        
+
         setProductsList(productsUser.filter(product => {
             return product.product_id;
         }));
@@ -148,6 +148,33 @@ const Home: React.FC = () => {
 
     }, []);
 
+    const handleAddProduct = useCallback(async (nfc: boolean) => {
+        const readTag = async () => {
+            try {
+                await NfcManager.registerTagEvent();
+            } catch (ex) {
+                NfcManager.unregisterTagEvent().catch(() => 0);
+            }
+        }
+
+        try {
+            if (nfc) {
+                await NfcManager.start();
+
+                NfcManager.setEventListener(NfcEvents.DiscoverTag, async (tag: any) => {
+                    await NfcManager.setAlertMessageIOS('I got your tag!');
+                    await NfcManager.unregisterTagEvent().catch(() => 0);
+                });
+
+                await readTag();
+            } else {
+                setVisibleNfc(nfc);
+            }
+        } catch (e) {
+            setVisibleNfc(nfc);
+        }
+    }, [visibleNfc, setVisibleNfc]);
+
     return (
         <Container listView={listView}>
             {!listView && <Backdrop products={productsUser} scrollX={scrollX} />}
@@ -162,7 +189,7 @@ const Home: React.FC = () => {
                         <TouchableOpacity onPress={handleSetViewList}>
                             <Feather name={!listView ? "list" : "layers"} size={30} color="#FFF" style={{ paddingRight: 20 }} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => { setVisibleNfc(!visibleNfc) }}>
+                        <TouchableOpacity onPress={() => { handleAddProduct(!visibleNfc) }}>
                             {visibleNfc ?
                                 <Feather name="minus-circle" size={30} color="#FFF" />
                                 :

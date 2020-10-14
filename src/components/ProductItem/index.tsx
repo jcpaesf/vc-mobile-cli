@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Text, View, Animated, Dimensions } from 'react-native';
+import { Text, View, Animated, Dimensions, ScrollView } from 'react-native';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import ModalProduct from '../ModalProduct';
@@ -104,6 +104,7 @@ const ProductItem: React.FC<ProductProps> = ({ item, translateY, opacity, hookOp
                     </ContainerProduct>
                 </ContainerContent>
             </View>
+
         </>
     );
 };

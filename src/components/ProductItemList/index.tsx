@@ -88,7 +88,7 @@ const ProductListItem: React.FC<ProductProps> = ({ item, hookOpacity }) => {
 
                     <ContainerContentProduct>
                         <ContainerContentData style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <TextContent>{'CONTEÚDO NOVO\nDISPONÍVEL'}</TextContent>
+                            <TextContent>{item.content > 0 ? 'CONTEÚDO NOVO\nDISPONÍVEL' : 'NENHUM\nCONTEÚDO NOVO'}</TextContent>
                             <TextValidate>VÁLIDO ATÉ{'\n'}<TextDate>{dateFormat}</TextDate></TextValidate>
                         </ContainerContentData>
                     </ContainerContentProduct>

@@ -59,7 +59,7 @@ const SignIn: React.FC = () => {
 
     const handleActiveNotification = useCallback(async (): Promise<string> => {
         const { granted } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-        
+
         if (!granted) {
             const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
 
@@ -82,10 +82,10 @@ const SignIn: React.FC = () => {
                 lightColor: '#FF231F7C',
             });
         }
-        
-        //const token = (await Notifications.getExpoPushTokenAsync()).data;       
 
-        return '';
+        const { data } = await Notifications.getExpoPushTokenAsync({ experienceId: 'com.mobile' });
+
+        return data;
     }, []);
 
     const handleSignIn = useCallback(async (data: SignInFormData) => {
@@ -104,6 +104,9 @@ const SignIn: React.FC = () => {
 
             const token = await handleActiveNotification();
 
+            console.log(token);
+            
+
             setShowLoading(false);
 
             await signIn({
@@ -111,6 +114,8 @@ const SignIn: React.FC = () => {
                 password: data.password
             });
         } catch (e) {
+            console.log(e);
+
             if (e instanceof Yup.ValidationError) {
                 setShowLoading(false);
 
