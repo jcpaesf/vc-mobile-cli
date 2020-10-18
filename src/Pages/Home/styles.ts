@@ -63,3 +63,17 @@ export const TextTitle = styled.Text`
 export const DarkenContainer = styled.View`
   background-color: rgba(0, 0, 0, 0.1);
 `
+
+export const ContainerModal = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    opacity: 0.7;
+`;
+
+export const TextModal = styled.Text`
+    font-family: 'MPLUSRounded1c-Regular';
+    font-size: 15px;
+    color: #FFFFFF;
+`;

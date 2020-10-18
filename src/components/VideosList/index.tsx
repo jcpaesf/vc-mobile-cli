@@ -25,10 +25,20 @@ const VideosList: React.FC<ItemProps> = ({ id, type }) => {
     const [productContent, setProductContent] = useState<ResponseProductContent[]>([]);
     const { setContentId } = useProduct();
 
-    const handleNavigateVideos = useCallback((contentId: string) => {
+    const handleNavigateVideos = useCallback((contentId: string, type: string) => {
         setContentId(contentId);
 
-        navigate('Videos');
+        if (type === 'V') {
+            navigate('Videos');
+
+            return;
+        }
+
+        if (type === 'P') {
+            navigate('Photos');
+
+            return;
+        }
     }, [])
 
     useEffect(() => {
@@ -45,7 +55,7 @@ const VideosList: React.FC<ItemProps> = ({ id, type }) => {
         <>
             {productContent.map(content => {
                 return (
-                    <TouchableOpacity key={content.id} onPress={() => { handleNavigateVideos(content.id) }}>
+                    <TouchableOpacity key={content.id} onPress={() => { handleNavigateVideos(content.id, content.type) }}>
                         <Container source={{ uri: `${baseURL}/files/${content.background}` }} imageStyle={{ opacity: 0.5 }} >
                             <ContainerContent>
                                 <Title>{content.description}</Title>

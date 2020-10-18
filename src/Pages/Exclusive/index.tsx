@@ -38,13 +38,6 @@ const Exclusive: React.FC = () => {
         }, {
             key: 'C2',
             render: () => <VideosList id={product_id} type="P" />
-        }, {
-            key: 'TEXTS',
-            render: () => <Title>TEXTOS</Title>,
-            isTitle: true,
-        }, {
-            key: 'C3',
-            render: () => <VideosList id={product_id} type="T" />
         }];
 
         const indices: number[] = [];

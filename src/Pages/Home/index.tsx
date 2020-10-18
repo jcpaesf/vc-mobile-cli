@@ -4,6 +4,9 @@ import {
     Dimensions,
     Animated,
     FlatList,
+    Modal,
+    Platform,
+    Alert
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -13,6 +16,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import NfcManager, { NfcEvents } from 'react-native-nfc-manager';
+import Lottie from 'lottie-react-native';
 
 import Search from '../../components/Search';
 import Backdrop from '../../components/Backdrop';
@@ -26,9 +30,12 @@ import {
     Avatar,
     Logo,
     ContainerOptions,
-    TextTitle
+    TextTitle,
+    ContainerModal,
+    TextModal
 } from './styles';
 
+import loadingAnimation from '../../assets/animations/loadingVs.json';
 import logoImg from '../../assets/images/logoVc.png';
 import ProductListItem from '../../components/ProductItemList';
 import InputNfc from '../../components/InputNfc';
@@ -70,11 +77,16 @@ interface SearchFormData {
     search: string;
 }
 
+interface AddProductProps {
+    nfc_id: string;
+}
+
 const Home: React.FC = () => {
     const { navigate } = useNavigation();
     const [productsList, setProductsList] = useState<ResponseProductUser[]>([]);
     const [productsUser, setProductsUser] = useState<ResponseProductUser[]>([]);
     const [productsUserFilter, setProductsUserFilter] = useState<ResponseProductUser[]>([]);
+    const [showAddProduct, setShowAddProduct] = useState(false);
     const [opacityContainer, setOpacityContainer] = useState(false);
     const [visibleNfc, setVisibleNfc] = useState(false);
     const [listView, setListView] = useState(false);
@@ -144,9 +156,32 @@ const Home: React.FC = () => {
         }
     }, [listView, setProductsList, productsUserFilter, setProductsUser]);
 
-    const handleAddNfc = useCallback(() => {
+    const handleAddNfc = useCallback((data: AddProductProps) => {
+        setShowAddProduct(true);
 
-    }, []);
+        api.post('/productsuser', data).then(apiResponse => {
+            setShowAddProduct(false);
+            setVisibleNfc(false);
+
+            setProductsUserFilter([...productsUserFilter, apiResponse.data]);
+            setProductsList([...productsUserFilter, apiResponse.data]);
+            setProductsUser([
+                {
+                    id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
+                },
+                ...productsUserFilter,
+                apiResponse.data,
+                {
+                    id: 'empty-right', product_id: '', product: {} as Product, tag: [], content: 0
+                }
+            ]);
+        }).catch((e) => {
+            setShowAddProduct(false);
+            setVisibleNfc(false);
+
+            Alert.alert('Mensagem', 'Erro ao adicionar produto. Tente novamente mais tarde.');
+        });
+    }, [setShowAddProduct, setVisibleNfc, setProductsUser, setProductsList, setProductsUserFilter, productsUserFilter]);
 
     const handleAddProduct = useCallback(async (nfc: boolean) => {
         const readTag = async () => {
@@ -202,7 +237,7 @@ const Home: React.FC = () => {
                 {visibleNfc &&
                     <Form ref={formNfc} onSubmit={handleAddNfc} style={{ marginHorizontal: 25 }}>
                         <InputNfc
-                            name="nfc"
+                            name="nfc_id"
                             placeholder="Informe o NFC do produto"
                             returnKeyType="send"
                             onSubmitEditing={() => {
@@ -274,6 +309,20 @@ const Home: React.FC = () => {
                     renderItem={({ item }) => <ProductListItem item={item} hookOpacity={setOpacityContainer} />}
                 />
             }
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={showAddProduct}
+            >
+                {Platform.OS === 'ios' ?
+                    <Lottie source={loadingAnimation} loop={true} autoPlay={true} resizeMode='contain' />
+                    :
+                    <ContainerModal>
+                        <TextModal style={{ color: '#FFF' }}>Adicionando produto</TextModal>
+                    </ContainerModal>
+                }
+
+            </Modal>
         </Container>
     );
 }

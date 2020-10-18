@@ -19,7 +19,7 @@ const VideoFile: React.FC<VideoProps> = ({ file, background }) => {
             posterSource={{ uri: `${baseURL}/files/${background}` }}
             volume={2.0}
             isMuted={false}
-            resizeMode="stretch"
+            resizeMode="contain"
             shouldPlay={false}
             isLooping={false}
             useNativeControls={true}
