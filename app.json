@@ -4,6 +4,7 @@
   "android": {
     "useNextNotificationsApi": true,
     "package": "com.mobile",
-    "versionCode": 1
+    "versionCode": 1,
+    "googleServicesFile": "./google-services.json"
   }
 }

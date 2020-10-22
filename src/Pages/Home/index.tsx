@@ -8,14 +8,14 @@ import {
     Platform,
     Alert
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../../hooks/auth';
 import { AxiosResponse } from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
-import NfcManager, { NfcEvents } from 'react-native-nfc-manager';
+import NfcManager, { NfcEvents, Ndef } from 'react-native-nfc-manager';
 import Lottie from 'lottie-react-native';
 
 import Search from '../../components/Search';
@@ -94,6 +94,7 @@ const Home: React.FC = () => {
     const { user, signOut } = useAuth();
     const formRef = useRef<FormHandles>(null);
     const formNfc = useRef<FormHandles>(null);
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         async function loadProducts() {
@@ -110,18 +111,15 @@ const Home: React.FC = () => {
             ]);
 
             setProductsUserFilter(response.data);
+            setProductsList(response.data);
         }
 
         loadProducts();
-    }, []);
+    }, [isFocused]);
 
     const handleSetViewList = useCallback(() => {
         setListView(!listView);
-
-        setProductsList(productsUser.filter(product => {
-            return product.product_id;
-        }));
-    }, [productsUser, setProductsList, setListView, listView]);
+    }, [setListView, listView]);
 
     const handleSignOut = useCallback(async () => {
         navigate('Profile');
@@ -184,28 +182,28 @@ const Home: React.FC = () => {
     }, [setShowAddProduct, setVisibleNfc, setProductsUser, setProductsList, setProductsUserFilter, productsUserFilter]);
 
     const handleAddProduct = useCallback(async (nfc: boolean) => {
-        const readTag = async () => {
-            try {
-                await NfcManager.registerTagEvent();
-            } catch (ex) {
-                NfcManager.unregisterTagEvent().catch(() => 0);
-            }
-        }
+        if (nfc) {
+            const isSupported = await NfcManager.isSupported();
 
-        try {
-            if (nfc) {
-                await NfcManager.start();
-
-                NfcManager.setEventListener(NfcEvents.DiscoverTag, async (tag: any) => {
-                    await NfcManager.setAlertMessageIOS('I got your tag!');
-                    await NfcManager.unregisterTagEvent().catch(() => 0);
-                });
-
-                await readTag();
+            if (isSupported) {
+                Alert.alert(
+                    'Mensagem',
+                    'Deseja scanear o NFC ou informar manual?',
+                    [
+                        {
+                            text: "Scanear",
+                            onPress: () => navigate('Scan')
+                        },
+                        {
+                            text: "Informar manual",
+                            onPress: () => setVisibleNfc(nfc)
+                        }
+                    ]
+                );
             } else {
                 setVisibleNfc(nfc);
             }
-        } catch (e) {
+        } else {
             setVisibleNfc(nfc);
         }
     }, [visibleNfc, setVisibleNfc]);

@@ -5,6 +5,12 @@
     "project_id": "vest-connect",
     "storage_bucket": "vest-connect.appspot.com"
   },
+  "apiKey": "AIzaSyBsArSE_ct58JnZ5h1_NKA3aOybXAUVPJM",
+  "appId": "1:341063749765:android:ecbfe49dd6286d2e8519ec",
+  "databaseURL": "https://vest-connect.firebaseio.com",
+  "messagingSenderId": "341063749765",
+  "projectId": "vest-connect",
+  "storageBucket": "vest-connect.appspot.com",
   "client": [
     {
       "client_info": {

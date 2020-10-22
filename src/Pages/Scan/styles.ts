@@ -6,6 +6,10 @@ const { width } = Dimensions.get('window');
 export const Background = styled.ImageBackground`
     flex: 1;
     padding: 25px;
+`;
+
+export const Container = styled.View`
+    flex: 1;
     justify-content: center;
     align-items: center;
 `;

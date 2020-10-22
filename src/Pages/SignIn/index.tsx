@@ -105,7 +105,7 @@ const SignIn: React.FC = () => {
             const token = await handleActiveNotification();
 
             console.log(token);
-            
+
 
             setShowLoading(false);
 
@@ -114,6 +114,7 @@ const SignIn: React.FC = () => {
                 password: data.password
             });
         } catch (e) {
+
             console.log(e);
 
             if (e instanceof Yup.ValidationError) {
