@@ -14,9 +14,9 @@ const { width, height } = Dimensions.get('window');
 const VideoFile: React.FC<VideoProps> = ({ file, background }) => {
     return (
         <Video
-            source={{ uri: `${baseURL}/files/${file}` }}
+            source={{ uri: file }}
             rate={1.0}
-            posterSource={{ uri: `${baseURL}/files/${background}` }}
+            posterSource={{ uri: background }}
             volume={2.0}
             isMuted={false}
             resizeMode="contain"

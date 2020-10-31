@@ -104,9 +104,6 @@ const SignIn: React.FC = () => {
 
             const token = await handleActiveNotification();
 
-            console.log(token);
-
-
             setShowLoading(false);
 
             await signIn({
@@ -114,7 +111,6 @@ const SignIn: React.FC = () => {
                 password: data.password
             });
         } catch (e) {
-
             console.log(e);
 
             if (e instanceof Yup.ValidationError) {
@@ -135,7 +131,7 @@ const SignIn: React.FC = () => {
                 ]
             );
         }
-    }, [signIn /*, handleActiveNotification*/]);
+    }, [signIn, handleActiveNotification]);
 
     return (
         <>
@@ -186,7 +182,7 @@ const SignIn: React.FC = () => {
                                     }}
                                 />
 
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => { navigate('ForgotPassword') }}>
                                     <TextForgotPassword>Esqueci minha senha</TextForgotPassword>
                                 </TouchableOpacity>
 

@@ -19,6 +19,7 @@ interface Product {
     validate: Date;
     avatar: string;
     background: string;
+    background_url: string;
     description: string;
     user: User;
 }
@@ -48,7 +49,7 @@ const Backdrop: React.FC<BackdropProps> = ({ products, scrollX }) => {
                 renderToHardwareTextureAndroid
                 contentContainerStyle={{ width, height }}
                 renderItem={({ item, index }) => {
-                    if (!item.product.background) {
+                    if (!item.product.background_url) {
                         return null;
                     }
                     const translateX = scrollX.interpolate({
@@ -83,7 +84,7 @@ const Backdrop: React.FC<BackdropProps> = ({ products, scrollX }) => {
                             }
                         >
                             <Image
-                                source={{ uri: `${baseURL}/files/${item.product.background}` }}
+                                source={{ uri: item.product.background_url }}
                                 style={{
                                     width,
                                     height,

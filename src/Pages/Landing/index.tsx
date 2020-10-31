@@ -35,7 +35,7 @@ const Login: React.FC = () => {
                         <ButtonSignIn onPress={() => { navigate('SignIn') }}>
                             <TextSignIn>Acessar</TextSignIn>
                         </ButtonSignIn>
-                        <ButtonScan onPress={() => { navigate('Scan') }}>
+                        <ButtonScan onPress={() => { navigate('ScanAsync') }}>
                             <TextScan>Escanear produto</TextScan>
                         </ButtonScan>
                     </>
@@ -44,7 +44,7 @@ const Login: React.FC = () => {
                         <ButtonSignInAndroid onPress={() => { navigate('SignIn') }}>
                             <TextSignIn>Acessar</TextSignIn>
                         </ButtonSignInAndroid>
-                        <ButtonScanAndroid onPress={() => { navigate('Scan') }}>
+                        <ButtonScanAndroid onPress={() => { navigate('ScanAsync') }}>
                             <TextScan>Escanear produto</TextScan>
                         </ButtonScanAndroid>
                     </>

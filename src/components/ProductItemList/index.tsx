@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { baseURL } from '../../services/api';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
@@ -24,6 +23,7 @@ import {
 interface User {
     nickname: string;
     avatar: string;
+    avatar_url: string;
 }
 
 interface Product {
@@ -33,6 +33,8 @@ interface Product {
     validate: Date;
     avatar: string;
     background: string;
+    avatar_url: string;
+    background_url: string;
     description: string;
     user: User;
 }
@@ -76,8 +78,8 @@ const ProductListItem: React.FC<ProductProps> = ({ item, hookOpacity }) => {
             <ContainerItem background={'#40995B'}>
                 {item.content > 0 && <ContainerNotification><TextNotification>{item.content}</TextNotification></ContainerNotification>}
 
-                {item.product.avatar && <ImageProduct
-                    source={{ uri: `${baseURL}/files/${item.product.avatar}` }}
+                {item.product.avatar_url && <ImageProduct
+                    source={{ uri: `${item.product.avatar_url}` }}
                     borderBottomLeftRadius={10}
                     borderTopLeftRadius={10} />
                 }

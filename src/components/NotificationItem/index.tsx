@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Image } from 'react-native';
-import { baseURL } from '../../services/api';
 import Feather from 'react-native-vector-icons/Feather';
 import { ProductItem, ContainerSelect } from './styles';
 
@@ -9,6 +8,7 @@ interface NotificationItemProps {
     product_id: string;
     product: {
         avatar: string;
+        avatar_url: string;
     };
     notification: boolean;
 }
@@ -28,7 +28,7 @@ const NotificationItem: React.FC<NotificationItem> = ({ item }) => {
     return (
         <ProductItem onPress={() => { handleSelectItem(!notification) }}>
             <Image
-                source={{ uri: `${baseURL}/files/${item.product.avatar}` }}
+                source={{ uri: item.product.avatar_url }}
                 resizeMode="cover"
                 borderRadius={10}
                 style={{ flex: 1 }}

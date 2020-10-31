@@ -13,15 +13,16 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '../../hooks/auth';
 import { AxiosResponse } from 'axios';
 import Feather from 'react-native-vector-icons/Feather';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
-import NfcManager, { NfcEvents, Ndef } from 'react-native-nfc-manager';
+import NfcManager from 'react-native-nfc-manager';
 import Lottie from 'lottie-react-native';
 
 import Search from '../../components/Search';
 import Backdrop from '../../components/Backdrop';
 import ProductItem from '../../components/ProductItem';
-import api, { baseURL } from '../../services/api';
+import api from '../../services/api';
 
 import {
     Container,
@@ -47,6 +48,7 @@ const ITEM_SIZE = width * 0.85;
 interface User {
     nickname: string;
     avatar: string;
+    avatar_url: string;
 }
 
 interface Product {
@@ -56,6 +58,8 @@ interface Product {
     validate: Date;
     avatar: string;
     background: string;
+    background_url: string;
+    avatar_url: string;
     description: string;
     user: User;
 }
@@ -215,7 +219,12 @@ const Home: React.FC = () => {
             <ContainerHeader opacityContainer={opacityContainer}>
                 <Header>
                     <TouchableOpacity onPress={handleSignOut}>
-                        <Avatar source={{ uri: `${baseURL}/files/${user.avatar}` }} />
+                        {user.avatar_url ?
+                            <Avatar source={{ uri: user.avatar_url }} />
+                            :
+                            <EvilIcons name="user" color='#FFF' size={46} />
+                        }
+
                     </TouchableOpacity>
                     <Logo source={logoImg} resizeMode="contain" />
                     <ContainerOptions>

@@ -25,13 +25,13 @@ import sendEmailAnimation from '../../assets/animations/confirmemail.json';
 
 const ConfirmEmail: React.FC = () => {
 	const { navigate } = useNavigation();
-	const { emailSignUp } = useAuth();
+	const { emailForgot } = useAuth();
 	const [reSendLink, setReSendLink] = useState(false);
 
 	const reSendEmail = useCallback(async () => {
 		setReSendLink(true);
-		await api.post('/users/send', {
-			email: emailSignUp
+		await api.post('/password/forgot', {
+			email: emailForgot
 		});
 		setReSendLink(false);
 	}, []);
@@ -42,8 +42,8 @@ const ConfirmEmail: React.FC = () => {
 				<Lottie source={sendEmailAnimation} loop={true} autoPlay={true} resizeMode='contain' />
 			</ViewLottie>
 
-			<TextConfirmEmail>Um email de confirmação de{'\n'}cadastro foi enviado para</TextConfirmEmail>
-			<TextEmail numberOfLines={2}>{emailSignUp}</TextEmail>
+			<TextConfirmEmail>Um email para redefinir a senha{'\n'}foi enviado para</TextConfirmEmail>
+			<TextEmail numberOfLines={2}>{emailForgot}</TextEmail>
 			<TextObs>Favor acessar seu endereço de{'\n'}e-mail para confirmar seu cadastro</TextObs>
 
 			<ContainerButton>

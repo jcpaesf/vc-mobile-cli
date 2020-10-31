@@ -3,6 +3,7 @@ import { Platform, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BorderlessButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useAuth } from '../../hooks/auth';
 import { baseURL } from '../../services/api';
@@ -70,7 +71,12 @@ const Profile: React.FC = () => {
 
             <Header>
                 <ContainerAvatar>
-                    <Avatar source={{ uri: `${baseURL}/files/${user.avatar}` }} />
+                    {user.avatar_url ?
+                        <Avatar source={{ uri: user.avatar_url }} />
+                        :
+                        <EvilIcons name="user" color='#FFF' size={90} />
+                    }
+
                     {Platform.OS === 'ios' ?
                         <ButtonAvatar onPress={handleUpdateAvatar}>
                             <Ionicons name="ios-add-circle" size={15} color="#FFF" />

@@ -18,6 +18,7 @@ import Input from '../../components/Input';
 import InputDate from '../../components/InputDate';
 import getValidationErrors from '../../utils/getValidationErrors';
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import { Background, TextTitle, ButtonSignUp, ButtonSignUpAndroid, TextSignUp } from './styles';
 
@@ -38,6 +39,7 @@ const SignUp: React.FC = () => {
 	const confirmPasswordInputRef = useRef<TextInput>(null);
 	const formRef = useRef<FormHandles>(null);
 	const { goBack, navigate } = useNavigation();
+	const { setEmail } = useAuth();
 
 	const handleSignUp = useCallback(async (data: SignUpFormData) => {
 		try {
@@ -68,6 +70,8 @@ const SignUp: React.FC = () => {
 			});
 
 			await api.post('users', data);
+
+			setEmail(data.email);
 
 			navigate('ConfirmEmail');
 		} catch (e) {

@@ -13,6 +13,7 @@ interface User {
     name: string;
     email: string;
     avatar: string;
+    avatar_url: string;
 }
 
 interface Edit {
@@ -23,6 +24,10 @@ interface Edit {
 interface AuthContextState {
     user: User;
     loadingApp: boolean;
+    emailSignUp: string;
+    emailForgot: string;
+    setEmail(email: string): void;
+    setForgot(email: string): void;
     signIn(credentials: SignInCredentials): Promise<void>;
     signOut(): Promise<void>;
     editUser(edit: Edit): Promise<void>
@@ -48,6 +53,8 @@ export function useAuth(): AuthContextState {
 
 export const AuthProvider: React.FC = ({ children }) => {
     const [data, setData] = useState<AuthState>({} as AuthState);
+    const [emailSignUp, setEmailSignUp] = useState('');
+    const [emailForgot, setEmailForgot] = useState('');
     const [loadingApp, setLoadingApp] = useState(true);
 
     useEffect(() => {
@@ -81,8 +88,23 @@ export const AuthProvider: React.FC = ({ children }) => {
             ['@VsConnect:user', JSON.stringify(user)]
         ]);
 
-        setData({ token, user });
         api.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+        const nfc_id = await AsyncStorage.getItem('@VsConnect:nfcid');
+
+        if (nfc_id) {
+            api.post('/productsuser', {
+                nfc_id
+            }).then(async () => {
+                await AsyncStorage.removeItem('@VsConnect:nfcid');
+
+                setData({ token, user });
+            }).catch(() => {
+                setData({ token, user });
+            });
+        } else {
+            setData({ token, user });
+        }
     }, []);
 
     const signOut = useCallback(async () => {
@@ -111,8 +133,27 @@ export const AuthProvider: React.FC = ({ children }) => {
         setData({ user, token: data.token });
     }, []);
 
+    const setEmail = useCallback((email: string): void => {
+        setEmailSignUp(email);
+    }, []);
+
+    const setForgot = useCallback((email: string): void => {
+        setEmailForgot(email);
+    }, []);
+
     return (
-        <AuthContext.Provider value={{ user: data.user, loadingApp, signIn, signOut, editUser, updateUser }}>
+        <AuthContext.Provider value={{
+            user: data.user,
+            loadingApp,
+            signIn,
+            signOut,
+            editUser,
+            updateUser,
+            emailSignUp,
+            setEmail,
+            emailForgot,
+            setForgot
+        }}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Text, View, Animated, Dimensions, ScrollView } from 'react-native';
+import { View, Animated, Dimensions } from 'react-native';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import ModalProduct from '../ModalProduct';
-import { baseURL } from '../../services/api';
 import {
     ContainerContent,
     ContainerButton,
@@ -22,6 +21,7 @@ import {
 interface User {
     nickname: string;
     avatar: string;
+    avatar_url: string;
 }
 
 interface Product {
@@ -31,6 +31,8 @@ interface Product {
     validate: Date;
     avatar: string;
     background: string;
+    avatar_url: string;
+    background_url: string;
     description: string;
     user: User;
 }
@@ -74,7 +76,7 @@ const ProductItem: React.FC<ProductProps> = ({ item, translateY, opacity, hookOp
         setModalVisible(!modalVisible);
     }, [hookOpacity, modalVisible, setModalVisible]);
 
-    if (!item.product.avatar) {
+    if (!item.product.avatar_url) {
         return <View style={{ width: EMPTY_ITEM_SIZE }} />;
     }
 
@@ -85,7 +87,7 @@ const ProductItem: React.FC<ProductProps> = ({ item, translateY, opacity, hookOp
             <View style={{ width: ITEM_SIZE, marginTop: 10 }}>
                 <ContainerContent style={{ padding: SPACING * 2, marginHorizontal: SPACING, opacity, transform: [{ translateY }] }}>
                     <ContainerImg>
-                        <Image source={{ uri: `${baseURL}/files/${item.product.avatar}` }} borderRadius={5} resizeMode='contain' />
+                        <Image source={{ uri: item.product.avatar_url }} borderRadius={5} resizeMode='contain' />
                     </ContainerImg>
 
                     <ContainerProduct>

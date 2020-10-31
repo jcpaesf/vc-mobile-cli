@@ -5,6 +5,27 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 const { width } = Dimensions.get('window');
 
+export const ContainerTitle = styled.View`
+    flex: 0.5;
+    justify-content: center;
+`;
+
+export const ContainerForgotPassword = styled.View`
+    flex: 1;
+`;
+
+export const ImageLogo = styled.Image`
+    width: 48px;
+    height: 30px;
+    margin-bottom: 15px;
+`;
+
+export const TitleForgotPasswordBold = styled.Text`
+    font-family: 'MPLUSRounded1c-Black';
+    font-size: ${width <= 320 ? 19 : 21}px;
+    color: #FFF;
+`;
+
 export const Background = styled.ImageBackground`
     flex: 1;
     align-items: center;
@@ -50,7 +71,7 @@ export const ContainerButton = styled.View`
 `;
 
 export const ButtonLinkAndroid = styled(TouchableOpacity)`
-    width: ${width - 25}px;
+    width: ${width - 50}px;
     height: 61px;
     border-radius: 30px;
     background: #272727;
@@ -60,7 +81,7 @@ export const ButtonLinkAndroid = styled(TouchableOpacity)`
 `;
 
 export const ButtonLink = styled(BorderlessButton)`
-    width: ${width - 25}px;
+    width: ${width - 50}px;
     height: 61px;
     border-radius: 30px;
     background: #272727;
@@ -69,8 +90,8 @@ export const ButtonLink = styled(BorderlessButton)`
     align-items: center;
 `;
 
-export const ButtonSignInAndroid = styled(TouchableOpacity)`
-    width: ${width - 25}px;
+export const ButtonForgotPasswordAndroid = styled(TouchableOpacity)`
+    width: ${width - 50}px;
     height: 61px;
     border-radius: 30px;
     background: #FFF;
@@ -78,8 +99,8 @@ export const ButtonSignInAndroid = styled(TouchableOpacity)`
     align-items: center;
 `;
 
-export const ButtonSignIn = styled(BorderlessButton)`
-    width: ${width - 25}px;
+export const ButtonForgotPassword = styled(BorderlessButton)`
+    width: ${width - 50}px;
     height: 61px;
     border-radius: 30px;
     background: #FFF;
@@ -93,7 +114,7 @@ export const TextLink = styled.Text`
     color: #FFF;
 `;
 
-export const TextSignIn = styled.Text`
+export const TextForgotPassword = styled.Text`
     font-family: 'MPLUSRounded1c-ExtraBold';
     font-size: 17px;
     color: #272727;

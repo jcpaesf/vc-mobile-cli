@@ -12,6 +12,7 @@ interface ResponseProductContentVideos {
     description: string;
     background: string;
     file: string;
+    file_url: string;
 }
 
 interface ProductContentVideoProps {
@@ -23,7 +24,7 @@ const SIZE = width;
 
 const ProductContentVideo: React.FC<ProductContentVideoProps> = ({ item }) => {
     const [scaleImg, setScaleImg] = useState(new Animated.Value(1));
-    
+
     const onPinchEvent = Animated.event([
         { nativeEvent: { scale: scaleImg } }
     ], {
@@ -54,7 +55,7 @@ const ProductContentVideo: React.FC<ProductContentVideoProps> = ({ item }) => {
                             { scale: scaleImg }
                         ]
                     }}
-                    source={{ uri: `${baseURL}/files/${item.file}` }}
+                    source={{ uri: item.file_url }}
                     resizeMode='cover'
                 />
             </PinchGestureHandler>

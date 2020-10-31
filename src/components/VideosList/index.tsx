@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import { Container, ContainerContent, Title } from './styles';
-import { baseURL } from '../../services/api';
 import { AxiosResponse } from 'axios';
 import api from '../../services/api';
 import { useProduct } from '../../hooks/product';
@@ -13,6 +12,7 @@ interface ResponseProductContent {
     description: string;
     type: string;
     background: string;
+    background_url: string;
 }
 
 interface ItemProps {
@@ -56,7 +56,7 @@ const VideosList: React.FC<ItemProps> = ({ id, type }) => {
             {productContent.map(content => {
                 return (
                     <TouchableOpacity key={content.id} onPress={() => { handleNavigateVideos(content.id, content.type) }}>
-                        <Container source={{ uri: `${baseURL}/files/${content.background}` }} imageStyle={{ opacity: 0.5 }} >
+                        <Container source={{ uri: content.background_url }} imageStyle={{ opacity: 0.5 }} >
                             <ContainerContent>
                                 <Title>{content.description}</Title>
                                 <Feather name="chevron-right" color="#FFF" size={20} />

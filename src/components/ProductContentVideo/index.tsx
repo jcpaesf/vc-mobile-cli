@@ -9,7 +9,9 @@ interface ResponseProductContentVideos {
     title: string;
     description: string;
     background: string;
+    background_url: string;
     file: string;
+    file_url: string;
 }
 
 interface ProductContentVideoProps {
@@ -19,7 +21,7 @@ interface ProductContentVideoProps {
 const ProductContentVideo: React.FC<ProductContentVideoProps> = ({ item }) => {
     return (
         <Container>
-            <VideoFile file={item.file} background={item.background} />
+            <VideoFile file={item.file_url} background={item.background_url} />
             <Title style={{ color: '#FFF' }}>{item.title}</Title>
             <Description style={{ color: '#FFF' }}>{item.description}</Description>
         </Container>

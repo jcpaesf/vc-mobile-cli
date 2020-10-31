@@ -30,6 +30,7 @@ import { useNavigation } from '@react-navigation/native';
 interface User {
     nickname: string;
     avatar: string;
+    avatar_url: string;
 }
 
 interface Product {
@@ -39,6 +40,8 @@ interface Product {
     validate: Date;
     avatar: string;
     background: string;
+    avatar_url: string;
+    background_url: string;
     description: string;
     user: User;
 }
@@ -95,7 +98,7 @@ const ModalProduct: React.FC<ModalProps> = ({ item, hookCloseModal, visible }) =
                     </ButtonCloseModalAndroid>
                 }
                 <ContainerModalContent>
-                    <Image resizeMode="contain" style={{ width: 132, height: 99 }} source={{ uri: `${baseURL}/files/${item.product.user.avatar}` }} />
+                    <Image resizeMode="contain" style={{ width: 132, height: 99 }} source={{ uri: item.product.user.avatar_url}} />
 
                     <TextTitleModal>{item.product.title}</TextTitleModal>
                     <TextTypeCompleteModal>{item.product.subtitle}</TextTypeCompleteModal>
