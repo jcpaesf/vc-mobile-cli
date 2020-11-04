@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Platform } from 'react-native';
 
 import AppStack from './src/routes/AppStack';
 import AppProvider from './src/hooks';
@@ -8,7 +8,7 @@ import OneSignal from 'react-native-onesignal';
 
 export default function App() {
   useEffect(() => {
-    OneSignal.init('adba5911-2086-4094-aae4-17738e235819');
+    (Platform.OS === "android") ? OneSignal.init('adba5911-2086-4094-aae4-17738e235819') : OneSignal.init('56a250fe-8fd9-4ad2-a71f-eeb7f2dd7606');
     OneSignal.addEventListener('opened', onOpened);
     OneSignal.addEventListener('ids', onIds);
 
