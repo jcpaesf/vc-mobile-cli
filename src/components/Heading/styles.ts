@@ -6,7 +6,7 @@ export const Container = styled.View`
 
 export const HeadingText = styled.Text`
     color: #FFF;
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 23px;
     text-decoration-line: underline;
 `;

@@ -33,5 +33,5 @@ export const TextInputVs = styled.TextInput`
     color: #FFF;
     height: 50px;
     font-size: 16px;
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
 `;

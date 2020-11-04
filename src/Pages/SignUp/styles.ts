@@ -8,7 +8,7 @@ export const Background = styled.ImageBackground`
 `;
 
 export const TextTitle = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 19px;
     color: #FFF;
     margin-bottom: 25px;
@@ -37,7 +37,7 @@ export const ButtonSignUp = styled(BorderlessButton)`
 `;
 
 export const TextSignUp = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;

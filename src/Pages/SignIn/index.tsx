@@ -74,18 +74,7 @@ const SignIn: React.FC = () => {
             }
         }
 
-        if (Platform.OS === 'android') {
-            Notifications.setNotificationChannelAsync('default', {
-                name: 'default',
-                importance: Notifications.AndroidImportance.MAX,
-                vibrationPattern: [0, 250, 250, 250],
-                lightColor: '#FF231F7C',
-            });
-        }
-
-        const { data } = await Notifications.getExpoPushTokenAsync({ experienceId: 'com.mobile' });
-
-        return data;
+        return '';
     }, []);
 
     const handleSignIn = useCallback(async (data: SignInFormData) => {

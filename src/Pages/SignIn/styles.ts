@@ -17,7 +17,7 @@ export const ContainerModal = styled.View`
 `;
 
 export const TextModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 15px;
     color: #FFFFFF;
 `;
@@ -43,20 +43,20 @@ export const ImageLogo = styled.Image`
 `;
 
 export const TitleSignInBold = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 19 : 21}px;
     color: #FFF;
 `;
 
 export const TextInput = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 16px;
     color: #FFF;
     margin-bottom: 5px;
 `;
 
 export const TextForgotPassword = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 12px;
     color: #FFF;
     text-decoration-line: underline;
@@ -85,7 +85,7 @@ export const ButtonSignIn = styled(BorderlessButton)`
 `;
 
 export const TextSignIn = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;
@@ -98,13 +98,13 @@ export const ContainerCredentials = styled(BorderlessButton)`
 `;
 
 export const TextCredentials = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 14px;
     color: #FFF;
 `;
 
 export const TextCredentialsUnderline = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 14px;
     color: #FFF;
     text-decoration-line: underline;

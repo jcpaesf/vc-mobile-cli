@@ -6,7 +6,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
     color: #FFF;
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 15px;
     margin-top: 3px;
     margin-left: 15px;
@@ -14,7 +14,7 @@ export const Title = styled.Text`
 
 export const Description = styled.Text`
     color: #FFF;
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 13px;
     margin: 0px 15px;
 `

@@ -41,11 +41,11 @@ export const TextInputVs = styled(TextInputMask)`
     color: #FFF;
     height: 60px;
     font-size: 16px;
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
 `;
 
 export const Title = styled.Text<TextInputProps>`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 12px;
     color: #FFF;
     margin-bottom: 5px;

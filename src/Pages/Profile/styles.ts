@@ -56,19 +56,19 @@ export const ContainerUser = styled.View`
 `;
 
 export const TextNameUser = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 14 : 16}px;
     color: #FFF;
 `;
 
 export const TextEmailUser = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 12 : 13}px;
     color: #FFF;
 `;
 
 export const TextConfig = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 19px;
     color: #FFF;
     margin-top: 15px;
@@ -82,7 +82,7 @@ export const ContainerOptions = styled.View`
 `;
 
 export const TextOption = styled.Text`
-    font-family: 'MPLUSRounded1c-Medium';
+    font-family: 'RoundedMplus1c-Medium';
     font-size: 15px;
     color: #FFF;
     margin-left: 10px;

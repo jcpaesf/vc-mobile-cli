@@ -15,7 +15,7 @@ export const ContainerContent = styled.View`
 `;
 
 export const Title = styled.Text`
-    font-family: 'MPLUSRounded1c-Medium';
+    font-family: 'RoundedMplus1c-Medium';
     color: #FFF;
     max-width: 130px;
     font-size: 15px;

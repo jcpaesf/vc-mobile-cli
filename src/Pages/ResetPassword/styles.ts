@@ -17,14 +17,14 @@ export const ViewLottie = styled.View`
 `;
 
 export const TextConfirmEmail = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 15 : 17}px;
     color: #FFF;
     text-align: center;
 `;
 
 export const TextEmail = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: ${width <= 320 ? 22 : 24}px;
     color: #FFF;
     margin-top: 30px;
@@ -32,7 +32,7 @@ export const TextEmail = styled.Text`
 `;
 
 export const TextObs = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 15 : 17}px;
     color: #FFF;
     text-align: center;
@@ -88,13 +88,13 @@ export const ButtonSignIn = styled(BorderlessButton)`
 `;
 
 export const TextLink = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;
 
 export const TextSignIn = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #272727;
 `;

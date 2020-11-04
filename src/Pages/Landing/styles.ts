@@ -18,19 +18,19 @@ export const ImageLogo = styled.Image`
 `;
 
 export const TitleWelcome = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 21 : 23}px;
     color: white;
 `;
 
 export const TitleWelcomeBold = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 21 : 23}px;
     color: white;
 `;
 
 export const SubTitle = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 12 : 14}px;
     color: white;
     margin-top: 10px;
@@ -86,13 +86,13 @@ export const ButtonScan = styled(BorderlessButton)`
 `;
 
 export const TextSignIn = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;
 
 export const TextScan = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #272727;
 `;

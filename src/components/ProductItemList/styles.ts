@@ -30,13 +30,13 @@ export const ImageProduct = styled.Image`
 `;
 
 export const TextTitleList = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 15px;
     color: #FFF;
 `;
 
 export const TextTypeProductList = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 15px;
     color: #FFF;
 `;
@@ -47,19 +47,19 @@ export const ContainerContentProduct = styled.View`
 `;
 
 export const TextContent = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 9px;
     color: #FFF;
 `;
 
 export const TextValidate = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 8px;
     color: #FFF;
 `;
 
 export const TextDate = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 8px;
     color: #FFF;
 `;
@@ -82,7 +82,7 @@ export const ContainerContentData = styled.View`
 `;
 
 export const TextNotification = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 11px;
     color: #FFF;
 `;

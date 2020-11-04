@@ -22,7 +22,7 @@ export const ViewLottie = styled.View`
 `;
 
 export const TextScan = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 16px;
     color: #FFF;
 `;
@@ -60,7 +60,7 @@ export const ButtonManual = styled(BorderlessButton)`
 `;
 
 export const TextManual = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;

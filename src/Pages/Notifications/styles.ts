@@ -9,7 +9,7 @@ export const Container = styled.View`
 `;
 
 export const TextTitle = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 16px;
     color: #FFF;
     margin-top: 10px;
@@ -39,7 +39,7 @@ export const ButtonSignIn = styled(BorderlessButton)`
 `;
 
 export const TextSignIn = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;

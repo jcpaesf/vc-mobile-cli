@@ -36,6 +36,10 @@
 		591A0302274C4FA59210811F /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 507FFF07083846328FFCCE3A /* Octicons.ttf */; };
 		DC1062D1282A4CC3AEA390F3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57EC34F2C86D4D289C9A7697 /* SimpleLineIcons.ttf */; };
 		5CD7C8E2F457421E9B23F899 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0197A4B876404F7E95A96392 /* Zocial.ttf */; };
+		0C2BFC188AC743E88D7C6985 /* RoundedMplus1c-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5DF33CF03154F1E8EF1ED12 /* RoundedMplus1c-Black.ttf */; };
+		E78DDE79092145CAA1B525A9 /* RoundedMplus1c-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F1B061F0609B4DF9A77808C2 /* RoundedMplus1c-ExtraBold.ttf */; };
+		524AD4DF125F425381988D46 /* RoundedMplus1c-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2ADE61411BF64A468C15AB0E /* RoundedMplus1c-Medium.ttf */; };
+		32DEEA5F663E4132988C8EDA /* RoundedMplus1c-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC2FF5446E454C068E375A7E /* RoundedMplus1c-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +95,10 @@
 		507FFF07083846328FFCCE3A /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		57EC34F2C86D4D289C9A7697 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0197A4B876404F7E95A96392 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C5DF33CF03154F1E8EF1ED12 /* RoundedMplus1c-Black.ttf */ = {isa = PBXFileReference; name = "RoundedMplus1c-Black.ttf"; path = "../assets/fonts/RoundedMplus1c-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F1B061F0609B4DF9A77808C2 /* RoundedMplus1c-ExtraBold.ttf */ = {isa = PBXFileReference; name = "RoundedMplus1c-ExtraBold.ttf"; path = "../assets/fonts/RoundedMplus1c-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2ADE61411BF64A468C15AB0E /* RoundedMplus1c-Medium.ttf */ = {isa = PBXFileReference; name = "RoundedMplus1c-Medium.ttf"; path = "../assets/fonts/RoundedMplus1c-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EC2FF5446E454C068E375A7E /* RoundedMplus1c-Regular.ttf */ = {isa = PBXFileReference; name = "RoundedMplus1c-Regular.ttf"; path = "../assets/fonts/RoundedMplus1c-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +229,10 @@
 				507FFF07083846328FFCCE3A /* Octicons.ttf */,
 				57EC34F2C86D4D289C9A7697 /* SimpleLineIcons.ttf */,
 				0197A4B876404F7E95A96392 /* Zocial.ttf */,
+				C5DF33CF03154F1E8EF1ED12 /* RoundedMplus1c-Black.ttf */,
+				F1B061F0609B4DF9A77808C2 /* RoundedMplus1c-ExtraBold.ttf */,
+				2ADE61411BF64A468C15AB0E /* RoundedMplus1c-Medium.ttf */,
+				EC2FF5446E454C068E375A7E /* RoundedMplus1c-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -384,6 +396,10 @@
 				591A0302274C4FA59210811F /* Octicons.ttf in Resources */,
 				DC1062D1282A4CC3AEA390F3 /* SimpleLineIcons.ttf in Resources */,
 				5CD7C8E2F457421E9B23F899 /* Zocial.ttf in Resources */,
+				0C2BFC188AC743E88D7C6985 /* RoundedMplus1c-Black.ttf in Resources */,
+				E78DDE79092145CAA1B525A9 /* RoundedMplus1c-ExtraBold.ttf in Resources */,
+				524AD4DF125F425381988D46 /* RoundedMplus1c-Medium.ttf in Resources */,
+				32DEEA5F663E4132988C8EDA /* RoundedMplus1c-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

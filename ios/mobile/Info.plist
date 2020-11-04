@@ -60,10 +60,6 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>MPLUSRounded1c-Black.ttf</string>
-		<string>MPLUSRounded1c-ExtraBold.ttf</string>
-		<string>MPLUSRounded1c-Medium.ttf</string>
-		<string>MPLUSRounded1c-Regular.ttf</string>
 		<string>Feather.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
@@ -80,6 +76,10 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>RoundedMplus1c-Black.ttf</string>
+		<string>RoundedMplus1c-ExtraBold.ttf</string>
+		<string>RoundedMplus1c-Medium.ttf</string>
+		<string>RoundedMplus1c-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

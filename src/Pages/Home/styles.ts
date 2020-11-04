@@ -54,7 +54,7 @@ export const ContainerOptions = styled.View`
 `;
 
 export const TextTitle = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 19px;
     color: #FFF;
     padding-left: 25px;
@@ -73,7 +73,7 @@ export const ContainerModal = styled.View`
 `;
 
 export const TextModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 15px;
     color: #FFFFFF;
 `;

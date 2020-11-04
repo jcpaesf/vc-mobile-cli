@@ -33,19 +33,19 @@ export const ContainerModalContent = styled.View`
 `;
 
 export const TextTitleModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 18 : 20}px;
     color: #272727;
 `;
 
 export const TextTypeCompleteModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Medium';
+    font-family: 'RoundedMplus1c-Medium';
     font-size: ${width <= 320 ? 16 : 18}px;
     color: #272727;
 `;
 
 export const TextDescriptionModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 13 : 15}px;
     color: #272727;
     text-align: center;
@@ -72,7 +72,7 @@ export const TagProduct = styled.View`
 `;
 
 export const TextTag = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 10px;
     color: #272727;
 `;
@@ -86,20 +86,20 @@ export const ContainerContentModal = styled.View`
 `;
 
 export const TextDateModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 10 : 11}px;
     color: #272727;
     text-align: center;
 `;
 
 export const TextContentModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 12 : 13}px;
     color: #272727;
 `;
 
 export const TextValidateModal = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 10px;
     color: #272727;
     text-align: center;
@@ -128,7 +128,7 @@ export const ButtonAccessModal = styled(BorderlessButton)`
 `;
 
 export const TextAcess = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;

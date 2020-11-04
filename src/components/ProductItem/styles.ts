@@ -30,33 +30,33 @@ export const ContainerProduct = styled.View`
 `;
 
 export const TextProduct = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 14px;
     color: #272727;
 `;
 
 export const TextTypeProduct = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 17px;
     color: #272727;
 `;
 
 export const TextContent = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 11px;
     color: #272727;
     text-align: center;
 `;
 
 export const TextValidate = styled.Text`
-    font-family: 'MPLUSRounded1c-Regular';
+    font-family: 'RoundedMplus1c-Regular';
     font-size: 10px;
     color: #272727;
     text-align: center;
 `;
 
 export const TextDate = styled.Text`
-    font-family: 'MPLUSRounded1c-Black';
+    font-family: 'RoundedMplus1c-Black';
     font-size: 13px;
     color: #272727;
 `;
@@ -80,7 +80,7 @@ export const ButtonAccess = styled(BorderlessButton)`
 `;
 
 export const TextAcess = styled.Text`
-    font-family: 'MPLUSRounded1c-ExtraBold';
+    font-family: 'RoundedMplus1c-ExtraBold';
     font-size: 17px;
     color: #FFF;
 `;
