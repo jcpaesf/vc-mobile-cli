@@ -91,7 +91,7 @@ const SignUp: React.FC = () => {
 	}, []);
 
 	return (
-		<Background source={backgroundImg} resizeMode={Platform.OS === 'ios' ? 'contain' : 'cover'}>
+		<Background source={backgroundImg} resizeMode='cover'>
 			<KeyboardAvoidingView
 				style={{ flex: 1 }}
 				behavior={Platform.OS === 'ios' ? 'padding' : undefined}
