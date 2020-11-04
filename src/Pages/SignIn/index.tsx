@@ -66,10 +66,7 @@ const SignIn: React.FC = () => {
             if (status !== 'granted') {
                 Alert.alert(
                     'Notificações',
-                    'Caso queira ser notificado, você deve ir na configuração do aplicativo e ativar as notificações :)',
-                    [
-                        { text: "Ok entendi" }
-                    ]
+                    'Caso queira ser notificado, você deve ir na configuração do aplicativo e ativar as notificações.'
                 );
             }
         }
