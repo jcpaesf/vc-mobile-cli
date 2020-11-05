@@ -2,7 +2,7 @@ import React from 'react';
 
 import { baseURL } from '../../services/api';
 import { Video } from 'expo-av';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Platform } from 'react-native';
 
 interface VideoProps {
     file: string;
@@ -20,7 +20,7 @@ const VideoFile: React.FC<VideoProps> = ({ file, background }) => {
             volume={2.0}
             isMuted={false}
             resizeMode="contain"
-            shouldPlay={true}
+            shouldPlay={Platform.OS === 'ios' ? true : false}
             isLooping={false}
             useNativeControls={true}
             style={{
