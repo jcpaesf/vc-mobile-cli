@@ -20,7 +20,7 @@ const VideoFile: React.FC<VideoProps> = ({ file, background }) => {
             volume={2.0}
             isMuted={false}
             resizeMode="contain"
-            shouldPlay={false}
+            shouldPlay={true}
             isLooping={false}
             useNativeControls={true}
             style={{
