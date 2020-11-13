@@ -91,6 +91,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
         const nfc_id = await AsyncStorage.getItem('@VsConnect:nfcid');
+        const tokenDevice = await AsyncStorage.getItem('@VsConnect:tokenDevice');
+
+        if (tokenDevice) {
+            await api.post('/token', {
+                token: tokenDevice
+            });
+        }
 
         if (nfc_id) {
             api.post('/productsuser', {

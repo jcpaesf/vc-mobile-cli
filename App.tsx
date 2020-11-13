@@ -5,6 +5,7 @@ import AppStack from './src/routes/AppStack';
 import AppProvider from './src/hooks';
 import SplashScreen from 'react-native-splash-screen';
 import OneSignal from 'react-native-onesignal';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function App() {
   useEffect(() => {
@@ -21,8 +22,8 @@ export default function App() {
     console.log(result);
   }
 
-  function onIds(device: any) {
-    console.log(device);
+  async function onIds(device: any) {
+    await AsyncStorage.setItem('@VsConnect:tokenDevice', device.userId);
   }
 
   return (

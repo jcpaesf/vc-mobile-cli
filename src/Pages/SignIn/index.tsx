@@ -16,7 +16,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import Lottie from 'lottie-react-native';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 
 import { useAuth } from '../../hooks/auth';
@@ -89,7 +88,7 @@ const SignIn: React.FC = () => {
             });
 
             setShowLoading(false);
-            
+
             await signIn({
                 email: data.email,
                 password: data.password
