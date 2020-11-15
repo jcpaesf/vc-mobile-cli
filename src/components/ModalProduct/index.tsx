@@ -4,7 +4,6 @@ import { Image, Modal } from 'react-native';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import Feather from 'react-native-vector-icons/Feather';
-import { baseURL } from '../../services/api';
 import { useProduct } from '../../hooks/product';
 import {
     ContainerModal,
