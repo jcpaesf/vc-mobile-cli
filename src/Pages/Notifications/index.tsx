@@ -19,6 +19,7 @@ interface ProductUserProps {
     product_id: string;
     product: {
         avatar: string;
+        avatar_url: string;
     };
     notification: boolean;
 }

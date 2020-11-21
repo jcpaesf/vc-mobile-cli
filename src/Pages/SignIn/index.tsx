@@ -94,8 +94,6 @@ const SignIn: React.FC = () => {
                 password: data.password
             });
         } catch (e) {
-            console.log(e);
-
             if (e instanceof Yup.ValidationError) {
                 setShowLoading(false);
 

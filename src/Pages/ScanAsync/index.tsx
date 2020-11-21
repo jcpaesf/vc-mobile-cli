@@ -61,10 +61,6 @@ interface ResponseExistsProduct {
     avatar_url: string;
 }
 
-interface IResponsePassword {
-    id: string;
-}
-
 const Home: React.FC = () => {
     const { goBack, navigate } = useNavigation();
     const [manual, setManual] = useState(false);

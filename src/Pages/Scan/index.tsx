@@ -1,66 +1,92 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, {
+    useState,
+    useEffect,
+    useCallback,
+    useRef
+} from 'react';
+import {
+    Alert,
+    TouchableOpacity,
+    Modal,
+    Platform
+} from 'react-native';
+import {
+    Background,
+    TextScan,
+    Container,
+    ContainerModal,
+    ButtonCloseModal,
+    ButtonCloseModalAndroid,
+    ContainerModalContent,
+    Image,
+    TextTitleModal,
+    TextTypeCompleteModal,
+    TextDescriptionModal
+} from './styles';
+import NfcManager, {
+    NfcEvents,
+    Ndef
+} from 'react-native-nfc-manager';
 import { useNavigation } from '@react-navigation/native';
 import Lottie from 'lottie-react-native';
-import { Background, TextScan, Container } from './styles';
-import NfcManager, { NfcEvents, Ndef } from 'react-native-nfc-manager';
 import api from '../../services/api';
 import backgroundImg from '../../assets/images/background.png';
 import scanAnimation from '../../assets/animations/scanradar.json';
-import { Alert, TouchableOpacity } from 'react-native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import InputNfc from '../../components/InputNfc';
 import Feather from 'react-native-vector-icons/Feather';
+import InputPassword from '../../components/InputPassword';
+import { AxiosResponse } from 'axios';
 
 interface AddProductProps {
     nfc_id: string;
+}
+
+interface ConfirmPassword {
+    password: string;
+}
+
+interface ResponseExistsProduct {
+    id: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    avatar_url: string;
 }
 
 const Home: React.FC = () => {
     const { goBack, navigate } = useNavigation();
     const [scanOk, setScanOk] = useState(false);
     const [manual, setManual] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [nfcId, setNfcId] = useState('');
+    const [product, setProduct] = useState<ResponseExistsProduct>({} as ResponseExistsProduct)
     const formNfc = useRef<FormHandles>(null);
+    const formPassword = useRef<FormHandles>(null);
 
     const handleAddNfc = useCallback(async (data: AddProductProps) => {
         await NfcManager.unregisterTagEvent().catch(() => 0);
 
-        api.post('/productsuser', data).then(apiResponse => {
-            setScanOk(true);
+        try {
+            const response: AxiosResponse<ResponseExistsProduct> = await api.get(`/products/${data.nfc_id}/nfc`);
 
-            setTimeout(() => {
-                navigate('Home');
-            }, 1000);
-        }).catch((e) => {
-            if (manual) {
-                Alert.alert(
-                    'Mensagem',
-                    'Erro ao adicionar produto. Tente novamente mais tarde.',
-                    [
-                        {
-                            text: "OK",
-                            onPress: () => navigate('Home')
-                        }
-                    ]
-                );
-            } else {
-                Alert.alert(
-                    'Mensagem',
-                    'Erro ao adicionar produto. Tente novamente mais tarde.',
-                    [
-                        {
-                            text: "OK",
-                            onPress: () => navigate('Home')
-                        },
-                        {
-                            text: "Informar manual",
-                            onPress: () => setManual(true)
-                        }
-                    ]
-                );
-            }
-        });
-    }, [setScanOk, manual, setManual]);
+            setProduct(response.data);
+            setNfcId(data.nfc_id);
+            setModalVisible(true);
+        } catch (e) {
+            Alert.alert(
+                'Mensagem',
+                'Erro ao adicionar produto. Tente novamente mais tarde.',
+                [
+                    {
+                        text: "OK",
+                        onPress: () => navigate('Home')
+                    }
+                ]
+            );
+        }
+    }, [setNfcId, setProduct, setModalVisible]);
 
     useEffect(() => {
         async function readTag() {
@@ -97,35 +123,90 @@ const Home: React.FC = () => {
         startReadNfc();
     }, [scanOk]);
 
-    return (
-        <Background source={backgroundImg} resizeMode="cover">
-            <TouchableOpacity onPress={() => goBack()} style={{ marginTop: 25 }}>
-                <Feather name='chevron-left' size={25} color='#FFF' />
-            </TouchableOpacity>
+    const handleConfirmPassword = useCallback(async (data: ConfirmPassword) => {
+        try {
+            await api.patch(`/passwords/inactive/${data.password}/pass`);
+            await api.post('/productsuser', { nfc_id: nfcId });
+            await api.patch(`/productstagsnfc/inactive/${nfcId}/nfc`);
+            setModalVisible(false);
+            navigate('Home');
+            Alert.alert(
+                'Mensagem',
+                'O produto foi adicionado na sua carteira.'
+            );
+        } catch (e) {
+            Alert.alert('Atenção', 'Ocorreu um erro ao adicionar seu produto. Tente mais tarde.');
+        }
+    }, [setModalVisible, nfcId]);
 
-            <Container>
-                {manual ? (
-                    <Form ref={formNfc} onSubmit={handleAddNfc} style={{ marginHorizontal: 25 }}>
-                        <InputNfc
-                            name="nfc_id"
-                            placeholder="Informe o NFC do produto"
-                            returnKeyType="send"
-                            onSubmitEditing={() => {
-                                formNfc.current?.submitForm();
-                            }}
-                        />
-                    </Form>
-                )
-                    :
-                    (
-                        <>
-                            <Lottie source={scanAnimation} loop={true} autoPlay={true} resizeMode='contain' />
-                            <TextScan>{!scanOk ? 'Aproxime seu aparelho do produto' : 'Produto scaneado com sucesso'}</TextScan>
-                        </>
+    return (
+        <>
+            <Background source={backgroundImg} resizeMode="cover">
+                <TouchableOpacity onPress={() => goBack()} style={{ marginTop: 25 }}>
+                    <Feather name='chevron-left' size={25} color='#FFF' />
+                </TouchableOpacity>
+
+                <Container>
+                    {manual ? (
+                        <Form ref={formNfc} onSubmit={handleAddNfc} style={{ marginHorizontal: 25 }}>
+                            <InputNfc
+                                name="nfc_id"
+                                placeholder="Informe o NFC do produto"
+                                returnKeyType="send"
+                                onSubmitEditing={() => {
+                                    formNfc.current?.submitForm();
+                                }}
+                            />
+                        </Form>
                     )
-                }
-            </Container>
-        </Background>
+                        :
+                        (
+                            <>
+                                <Lottie source={scanAnimation} loop={true} autoPlay={true} resizeMode='contain' />
+                                <TextScan>{!scanOk ? 'Aproxime seu aparelho do produto' : 'Produto scaneado com sucesso'}</TextScan>
+                            </>
+                        )
+                    }
+                </Container>
+            </Background>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <ContainerModal>
+                    {Platform.OS === 'ios' ?
+                        <ButtonCloseModal onPress={() => { setModalVisible(false) }}>
+                            <Feather name="x" size={25} color="#FFF" />
+                        </ButtonCloseModal>
+                        :
+                        <ButtonCloseModalAndroid onPress={() => { setModalVisible(false) }}>
+                            <Feather name="x" size={25} color="#FFF" />
+                        </ButtonCloseModalAndroid>
+                    }
+                    <ContainerModalContent>
+                        <Image resizeMode="contain" source={{ uri: product.avatar_url }} />
+
+                        <TextTitleModal>{product.title}</TextTitleModal>
+                        <TextTypeCompleteModal>{product.subtitle}</TextTypeCompleteModal>
+                        <TextDescriptionModal>{product.description}</TextDescriptionModal>
+
+                        <Form ref={formPassword} onSubmit={handleConfirmPassword} style={{ marginHorizontal: 25 }}>
+                            <InputPassword
+                                name="password"
+                                placeholder="Informe o password"
+                                returnKeyType="send"
+                                secureTextEntry={true}
+                                icon="lock"
+                                onSubmitEditing={() => {
+                                    formPassword.current?.submitForm();
+                                }}
+                            />
+                        </Form>
+                    </ContainerModalContent>
+                </ContainerModal>
+            </Modal>
+        </>
     );
 }
 

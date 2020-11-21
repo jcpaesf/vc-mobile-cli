@@ -6,7 +6,8 @@ import {
     FlatList,
     Modal,
     Platform,
-    Alert
+    Alert,
+    TextInput
 } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -83,6 +84,7 @@ interface SearchFormData {
 
 interface AddProductProps {
     nfc_id: string;
+    password: string;
 }
 
 const Home: React.FC = () => {
@@ -98,6 +100,7 @@ const Home: React.FC = () => {
     const { user, signOut } = useAuth();
     const formRef = useRef<FormHandles>(null);
     const formNfc = useRef<FormHandles>(null);
+    const passwordInputRef = useRef<TextInput>(null);
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -158,31 +161,38 @@ const Home: React.FC = () => {
         }
     }, [listView, setProductsList, productsUserFilter, setProductsUser]);
 
-    const handleAddNfc = useCallback((data: AddProductProps) => {
+    const handleAddNfc = useCallback(async (data: AddProductProps) => {
         setShowAddProduct(true);
 
-        api.post('/productsuser', data).then(apiResponse => {
-            setShowAddProduct(false);
-            setVisibleNfc(false);
+        try {
+            await api.patch(`/passwords/inactive/${data.password}/pass`);
+            await api.patch(`/productstagsnfc/inactive/${data.nfc_id}/nfc`);
 
-            setProductsUserFilter([...productsUserFilter, apiResponse.data]);
-            setProductsList([...productsUserFilter, apiResponse.data]);
-            setProductsUser([
-                {
-                    id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
-                },
-                ...productsUserFilter,
-                apiResponse.data,
-                {
-                    id: 'empty-right', product_id: '', product: {} as Product, tag: [], content: 0
-                }
-            ]);
-        }).catch((e) => {
-            setShowAddProduct(false);
-            setVisibleNfc(false);
+            api.post('/productsuser', data).then(async (apiResponse) => {
+                setShowAddProduct(false);
+                setVisibleNfc(false);
 
+                setProductsUserFilter([...productsUserFilter, apiResponse.data]);
+                setProductsList([...productsUserFilter, apiResponse.data]);
+                setProductsUser([
+                    {
+                        id: 'empty-left', product_id: '', product: {} as Product, tag: [], content: 0
+                    },
+                    ...productsUserFilter,
+                    apiResponse.data,
+                    {
+                        id: 'empty-right', product_id: '', product: {} as Product, tag: [], content: 0
+                    }
+                ]);
+            }).catch((e) => {
+                setShowAddProduct(false);
+                setVisibleNfc(false);
+
+                Alert.alert('Mensagem', 'Erro ao adicionar produto. Tente novamente mais tarde.');
+            });
+        } catch (e) {
             Alert.alert('Mensagem', 'Erro ao adicionar produto. Tente novamente mais tarde.');
-        });
+        }
     }, [setShowAddProduct, setVisibleNfc, setProductsUser, setProductsList, setProductsUserFilter, productsUserFilter]);
 
     const handleAddProduct = useCallback(async (nfc: boolean) => {
@@ -246,6 +256,16 @@ const Home: React.FC = () => {
                         <InputNfc
                             name="nfc_id"
                             placeholder="Informe o NFC do produto"
+                            returnKeyType="next"
+                            onSubmitEditing={() => {
+                                passwordInputRef.current?.focus();
+                            }}
+                        />
+                        <InputNfc
+                            ref={passwordInputRef}
+                            name="password"
+                            secureTextEntry={true}
+                            placeholder="Informe o password"
                             returnKeyType="send"
                             onSubmitEditing={() => {
                                 formNfc.current?.submitForm();
