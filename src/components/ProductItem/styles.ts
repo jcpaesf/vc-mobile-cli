@@ -15,7 +15,7 @@ export const ContainerContent = styled(Animated.View)`
 
 export const ContainerImg = styled.View`
     flex: 1.5;
-    width: 95%;
+    width: 60%;
 `;
 
 export const Image = styled.Image`

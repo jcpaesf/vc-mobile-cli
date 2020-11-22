@@ -87,7 +87,7 @@ const ProductItem: React.FC<ProductProps> = ({ item, translateY, opacity, hookOp
             <View style={{ width: ITEM_SIZE, marginTop: 10 }}>
                 <ContainerContent style={{ padding: SPACING * 2, marginHorizontal: SPACING, opacity, transform: [{ translateY }] }}>
                     <ContainerImg>
-                        <Image source={{ uri: item.product.avatar_url }} borderRadius={5} resizeMode='contain' />
+                        <Image source={{ uri: item.product.avatar_url }} borderRadius={15} resizeMode='cover' />
                     </ContainerImg>
 
                     <ContainerProduct>
