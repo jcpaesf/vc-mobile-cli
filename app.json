@@ -1,9 +1,9 @@
 {
-  "name": "vestconnect",
-  "displayName": "vestconnect",
+  "name": "connectvest",
+  "displayName": "connectvest",
   "android": {
     "useNextNotificationsApi": true,
-    "package": "com.vestconnect",
+    "package": "com.connectvest",
     "versionCode": 1,
     "googleServicesFile": "./google-services.json"
   }

@@ -136,7 +136,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.vestconnect"
+        applicationId "com.connectvest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7

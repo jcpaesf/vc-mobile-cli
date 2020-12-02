@@ -1,6 +1,6 @@
-package com.vestconnect;
+package com.connectvest;
 
-import com.vestconnect.generated.BasePackageList;
+import com.connectvest.generated.BasePackageList;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -76,7 +76,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.vestconnect.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.connectvest.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

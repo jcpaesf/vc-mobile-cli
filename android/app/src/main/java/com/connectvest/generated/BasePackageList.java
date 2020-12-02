@@ -1,4 +1,4 @@
-package com.vestconnect.generated;
+package com.connectvest.generated;
 
 import java.util.Arrays;
 import java.util.List;
