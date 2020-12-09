@@ -1,12 +1,11 @@
 import React, { useCallback } from 'react';
-import { Platform, Alert } from 'react-native';
+import { Platform, Alert, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BorderlessButton, TouchableOpacity } from 'react-native-gesture-handler';
 import Feather from 'react-native-vector-icons/Feather';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useAuth } from '../../hooks/auth';
-import { baseURL } from '../../services/api';
 import ImagePicker from 'react-native-image-picker';
 import api from '../../services/api';
 
@@ -63,6 +62,18 @@ const Profile: React.FC = () => {
         })
     }, [user.id]);
 
+    const handleGoToPrivacyPolicy = useCallback(async () => {
+        const url: string = 'https://user.vestconnect.com.br/privacypolicy';
+
+        const supported = await Linking.canOpenURL(url);
+
+        if (supported) {
+            await Linking.openURL(url);
+        } else {
+            Alert.alert(`Don't know how to open this URL: ${url}`);
+        }
+    }, []);
+
     return (
         <Container>
             <TouchableOpacity onPress={() => goBack()} style={{ marginTop: 25 }}>
@@ -107,7 +118,7 @@ const Profile: React.FC = () => {
                     <TextOption>Notificações</TextOption>
                 </ContainerOptions>
             </BorderlessButton>
-            <BorderlessButton>
+            <BorderlessButton onPress={handleGoToPrivacyPolicy}>
                 <ContainerOptions>
                     <Feather name="file-text" size={25} color="#FFF" />
                     <TextOption>Termos de uso</TextOption>
