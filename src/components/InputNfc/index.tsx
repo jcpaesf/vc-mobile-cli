@@ -7,6 +7,7 @@ import { Container, TextInputVs } from './styles';
 interface InputProps extends TextInputProps {
     name: string;
     icon?: string;
+    initialValue?: string;
 }
 
 interface InputValueReference {
@@ -17,12 +18,12 @@ interface InputRef {
     focus(): void;
 }
 
-const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, icon, ...rest }, ref) => {
+const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ initialValue = '', name, icon, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false);
     const [, setHaveValue] = useState(false);
     const inputElementRef = useRef<any>(null);
     const { registerField, defaultValue = '', fieldName, error } = useField(name);
-    const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
+    const inputValueRef = useRef<InputValueReference>({ value: initialValue });
 
     useImperativeHandle(ref, () => ({
         focus() {
@@ -66,7 +67,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = ({ name, ico
                     onBlur={handleInputBlur}
                     keyboardAppearance="dark"
                     placeholderTextColor='#666360'
-                    defaultValue={defaultValue}
+                    defaultValue={initialValue}
                     ref={inputElementRef}
                     onChangeText={(value: any) => {
                         inputValueRef.current.value = value;

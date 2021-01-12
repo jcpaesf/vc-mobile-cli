@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 interface ContainerProps {
     listView: boolean;
@@ -28,12 +29,34 @@ export const ContainerHeader = styled.View<ContainerHeaderProps>`
     }
 `;
 
+export const ContainerButtonBarCode = styled.View`
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const Camera = styled(Feather)`
+    margin-left: 10px;
+`;
+
 export const Header = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-top: 25px;
     padding: 25px;
+`;
+
+export const ContainerNfc = styled.View`
+    flex-direction: row;
+    padding-left: 20px;
+    margin-right: 15px;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const Avatar = styled.Image`

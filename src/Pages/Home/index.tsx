@@ -7,7 +7,8 @@ import {
     Modal,
     Platform,
     Alert,
-    TextInput
+    TextInput,
+    StyleSheet
 } from 'react-native';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -19,6 +20,7 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import NfcManager from 'react-native-nfc-manager';
 import Lottie from 'lottie-react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import Search from '../../components/Search';
 import Backdrop from '../../components/Backdrop';
@@ -34,7 +36,10 @@ import {
     ContainerOptions,
     TextTitle,
     ContainerModal,
-    TextModal
+    TextModal,
+    ContainerNfc,
+    Camera,
+    ContainerButtonBarCode
 } from './styles';
 
 import loadingAnimation from '../../assets/animations/loadingVs.json';
@@ -96,11 +101,14 @@ const Home: React.FC = () => {
     const [opacityContainer, setOpacityContainer] = useState(false);
     const [visibleNfc, setVisibleNfc] = useState(false);
     const [listView, setListView] = useState(false);
+    const [hasCameraPermission, setHasCameraPermission] = useState(false);
+    const [qrCodeValue, setQrCodeValue] = useState('');
     const scrollX = useRef(new Animated.Value(0)).current;
     const { user, signOut } = useAuth();
     const formRef = useRef<FormHandles>(null);
     const formNfc = useRef<FormHandles>(null);
     const passwordInputRef = useRef<TextInput>(null);
+    const inputNfcRef = useRef<TextInput>(null);
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -191,11 +199,14 @@ const Home: React.FC = () => {
                 Alert.alert('Mensagem', 'Erro ao adicionar produto. Tente novamente mais tarde.');
             });
         } catch (e) {
+            setShowAddProduct(false);
             Alert.alert('Mensagem', 'Erro ao adicionar produto. Tente novamente mais tarde.');
         }
     }, [setShowAddProduct, setVisibleNfc, setProductsUser, setProductsList, setProductsUserFilter, productsUserFilter]);
 
     const handleAddProduct = useCallback(async (nfc: boolean) => {
+        setQrCodeValue('');
+
         if (nfc) {
             const isSupported = await NfcManager.isSupported();
 
@@ -220,7 +231,35 @@ const Home: React.FC = () => {
         } else {
             setVisibleNfc(nfc);
         }
-    }, [visibleNfc, setVisibleNfc]);
+    }, [visibleNfc, setVisibleNfc, setQrCodeValue]);
+
+    const handleOpenCamera = useCallback(async () => {
+        const { status } = await BarCodeScanner.getPermissionsAsync();
+
+        setHasCameraPermission(status === 'granted');
+    }, [setHasCameraPermission]);
+
+    const handleBarCodeScanned = useCallback((data: string) => {
+        setHasCameraPermission(false);
+
+        setQrCodeValue(data);
+    }, [setHasCameraPermission, setQrCodeValue]);
+
+    if (hasCameraPermission) {
+        return (
+            <Container listView={false}>
+                <BarCodeScanner
+                    onBarCodeScanned={({ type, data }) => handleBarCodeScanned(data)}
+                    style={StyleSheet.absoluteFillObject}
+                />
+                <ContainerButtonBarCode>
+                    <TouchableOpacity onPress={() => { setHasCameraPermission(false); }}>
+                        <Feather name='x-circle' size={50} color="#FFF" style={{ paddingRight: 20 }} />
+                    </TouchableOpacity>
+                </ContainerButtonBarCode>
+            </Container>
+        )
+    }
 
     return (
         <Container listView={listView}>
@@ -253,14 +292,22 @@ const Home: React.FC = () => {
 
                 {visibleNfc &&
                     <Form ref={formNfc} onSubmit={handleAddNfc} style={{ marginHorizontal: 25 }}>
-                        <InputNfc
-                            name="nfc_id"
-                            placeholder="Informe o NFC do produto"
-                            returnKeyType="next"
-                            onSubmitEditing={() => {
-                                passwordInputRef.current?.focus();
-                            }}
-                        />
+                        <ContainerNfc>
+                            <InputNfc
+                                ref={inputNfcRef}
+                                name="nfc_id"
+                                initialValue={qrCodeValue}
+                                placeholder="Informe o NFC ou o QRCode"
+                                returnKeyType="next"
+                                onSubmitEditing={() => {
+                                    passwordInputRef.current?.focus();
+                                }}
+
+                            />
+                            <TouchableOpacity onPress={handleOpenCamera}>
+                                <Camera name="camera" size={30} color="#FFF" />
+                            </TouchableOpacity>
+                        </ContainerNfc>
                         <InputNfc
                             ref={passwordInputRef}
                             name="password"
