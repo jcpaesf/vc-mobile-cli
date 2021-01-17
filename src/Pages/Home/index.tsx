@@ -101,6 +101,7 @@ const Home: React.FC = () => {
     const [opacityContainer, setOpacityContainer] = useState(false);
     const [visibleNfc, setVisibleNfc] = useState(false);
     const [listView, setListView] = useState(false);
+    const [hasCameraAccess, setHasCameraAccess] = useState(false);
     const [hasCameraPermission, setHasCameraPermission] = useState(false);
     const [qrCodeValue, setQrCodeValue] = useState('');
     const scrollX = useRef(new Animated.Value(0)).current;
@@ -129,7 +130,14 @@ const Home: React.FC = () => {
             setProductsList(response.data);
         }
 
+        async function handleVerifyPermission() {
+            const { status } = await BarCodeScanner.getPermissionsAsync();
+
+            setHasCameraAccess(status === 'granted');
+        }
+
         loadProducts();
+        handleVerifyPermission();
     }, [isFocused]);
 
     const handleSetViewList = useCallback(() => {
@@ -234,10 +242,16 @@ const Home: React.FC = () => {
     }, [visibleNfc, setVisibleNfc, setQrCodeValue]);
 
     const handleOpenCamera = useCallback(async () => {
-        const { status } = await BarCodeScanner.getPermissionsAsync();
+        if (!hasCameraAccess) {
+            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            const cameraAccess = (status === 'granted');
 
-        setHasCameraPermission(status === 'granted');
-    }, [setHasCameraPermission]);
+            setHasCameraPermission(cameraAccess);
+            setHasCameraAccess(cameraAccess);
+        } else {
+            setHasCameraPermission(hasCameraAccess);
+        }
+    }, [hasCameraAccess, setHasCameraPermission, setHasCameraAccess]);
 
     const handleBarCodeScanned = useCallback((data: string) => {
         setHasCameraPermission(false);

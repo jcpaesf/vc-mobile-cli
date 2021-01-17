@@ -93,5 +93,7 @@
 		<string>NDEF</string>
 		<string>TAG</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This application requires access to the camera to scan a qrcode</string>
 </dict>
 </plist>
