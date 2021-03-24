@@ -19,6 +19,7 @@ interface ResponseProductContentVideos {
     background_url: string;
     file: string;
     file_url: string;
+    url?: string;
 }
 
 const Videos: React.FC = () => {

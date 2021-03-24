@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { Animated, Dimensions } from 'react-native';
-import GestureHandler, { State, PinchGestureHandler, PinchGestureHandlerStateChangeEvent } from 'react-native-gesture-handler';
-import { Value } from 'react-native-reanimated';
-import { baseURL } from '../../services/api';
+import React, { useCallback, useState } from 'react';
+import { Animated, Dimensions, Alert, Linking } from 'react-native';
+import { State, PinchGestureHandler, PinchGestureHandlerStateChangeEvent, TouchableOpacity } from 'react-native-gesture-handler';
 
-import { Container, Title, Description } from './styles';
+import { Container, Title, Description, DescriptionSite } from './styles';
 
 interface ResponseProductContentVideos {
     id: string;
@@ -13,6 +11,7 @@ interface ResponseProductContentVideos {
     background: string;
     file: string;
     file_url: string;
+    url?: string;
 }
 
 interface ProductContentVideoProps {
@@ -41,6 +40,18 @@ const ProductContentVideo: React.FC<ProductContentVideoProps> = ({ item }) => {
         }
     }
 
+    const handleGoToUrl = useCallback(async () => {
+        if (item.url) {
+            const supported = await Linking.canOpenURL(item.url);
+
+            if (supported) {
+                await Linking.openURL(item.url);
+            } else {
+                Alert.alert(`Não foi possível abrir o site`);
+            }
+        }
+    }, []);
+
     return (
         <Container>
             <PinchGestureHandler
@@ -61,6 +72,17 @@ const ProductContentVideo: React.FC<ProductContentVideoProps> = ({ item }) => {
             </PinchGestureHandler>
             <Title style={{ color: '#FFF' }}>{item.title}</Title>
             <Description style={{ color: '#FFF' }}>{item.description}</Description>
+            {
+                (item.url !== '' && item.url)
+                &&
+                <TouchableOpacity
+                    onPress={handleGoToUrl}
+                >
+                    <DescriptionSite>Acesse o site</DescriptionSite>
+                </TouchableOpacity>
+            }
+
+
         </Container>
     )
 }

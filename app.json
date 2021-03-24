@@ -1,6 +1,6 @@
 {
-  "name": "vestconnect",
-  "displayName": "vestconnect",
+  "name": "connectvest",
+  "displayName": "connectvest",
   "android": {
     "useNextNotificationsApi": true,
     "package": "com.connectvest",

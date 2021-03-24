@@ -11,6 +11,7 @@ import EditProfile from '../Pages/EditProfile';
 import Notifications from '../Pages/Notifications';
 import Photos from '../Pages/Photos';
 import Scan from '../Pages/Scan';
+import UserNotifications from '../Pages/UserNotifications';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -27,6 +28,7 @@ const AppStack: React.FC = () => {
                     <Screen name="Notifications" component={Notifications} />
                     <Screen name="Photos" component={Photos} />
                     <Screen name="Scan" component={Scan} />
+                    <Screen name="UserNotifications" component={UserNotifications} />
                 </Navigator>
             </ProductProvider>
         </NavigationContainer>

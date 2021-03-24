@@ -17,6 +17,8 @@ interface ResponseProductContentPhotos {
     description: string;
     background: string;
     file: string;
+    file_url: string;
+    url?: string;
 }
 
 const Videos: React.FC = () => {
