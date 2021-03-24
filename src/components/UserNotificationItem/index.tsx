@@ -31,7 +31,7 @@ const UserNotificationItem: React.FC<IUserNotificationProps> = ({ item }) => {
       <Description>
         {item.message}
       </Description>
-      {item.url && <TouchableOpacity
+      {(item.url !== '' && item.url) && <TouchableOpacity
         style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10 }}
         onPress={handleGoToUrl}
       >
