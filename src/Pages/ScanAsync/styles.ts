@@ -128,9 +128,8 @@ export const TextAcess = styled.Text`
 `;
 
 export const Image = styled.Image`
-    width: 300px;
+    width: 200px;
     height: 150px;
-    border-radius: 15px;
 `;
 
 export const TextTypeCompleteModal = styled.Text`
@@ -146,4 +145,20 @@ export const TextDescriptionModal = styled.Text`
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
+`;
+
+export const SubmitButton = styled(TouchableOpacity)`
+    padding: 20px;
+    height: 61px;
+    border-radius: 30px;
+    background: #272727;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const TextSubmitButton = styled.Text`
+    font-family: 'RoundedMplus1c-ExtraBold';
+    font-size: 15px;
+    color: #FFF;
 `;

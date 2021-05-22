@@ -22,7 +22,7 @@ import { useAuth } from '../../hooks/auth';
 
 import { Background, TextTitle, ButtonSignUp, ButtonSignUpAndroid, TextSignUp } from './styles';
 
-import backgroundImg from '../../assets/images/background.png';
+import backgroundImg from '../../assets/images/backgroundSignUp.png';
 
 interface SignUpFormData {
 	name: string;

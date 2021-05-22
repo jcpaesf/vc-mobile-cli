@@ -9,6 +9,10 @@ interface ContainerHeaderProps {
     opacityContainer: boolean;
 }
 
+export const Background = styled.ImageBackground`
+    flex: 1;
+`;
+
 export const Container = styled.View<ContainerProps>`
     flex: 1;
 
@@ -48,7 +52,7 @@ export const Header = styled.View`
     justify-content: space-between;
     align-items: center;
     margin-top: 25px;
-    padding: 25px;
+    padding: 10px 25px 25px 25px;
 `;
 
 export const ContainerNfc = styled.View`
@@ -68,7 +72,7 @@ export const Avatar = styled.Image`
 export const Logo = styled.Image`
     width: 48px;
     height: 30px;
-    margin-left: 40px;
+    margin-left: 20px;
 `;
 
 export const ContainerOptions = styled.View`

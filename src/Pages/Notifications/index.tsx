@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import api from '../../services/api';
 import NotificationItem from '../../components/NotificationItem';
+import backgroundImg from '../../assets/images/backgroundSignUp.png';
 
 import {
     Container,
@@ -57,7 +58,7 @@ const Notifications: React.FC = () => {
     }, [products]);
 
     return (
-        <Container>
+        <Container resizeMode="cover" source={backgroundImg}>
             <TouchableOpacity onPress={() => goBack()} style={{ marginTop: 25 }}>
                 <Feather name='chevron-left' size={25} color='#FFF' />
             </TouchableOpacity>

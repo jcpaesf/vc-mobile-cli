@@ -7,6 +7,7 @@ import { useProduct } from '../../hooks/product';
 import Heading from '../../components/Heading';
 import Title from '../../components/Title';
 import VideosList from '../../components/VideosList';
+import backgroundImg from '../../assets/images/backgroundSignUp.png';
 
 import { Container } from './styles';
 
@@ -51,7 +52,7 @@ const Exclusive: React.FC = () => {
     }, []);
 
     return (
-        <Container>
+        <Container source={backgroundImg} resizeMode="cover">
             <TouchableOpacity onPress={() => goBack()} style={{ marginTop: 25, marginLeft: 25 }}>
                 <Feather name='chevron-left' size={25} color='#FFF' />
             </TouchableOpacity>

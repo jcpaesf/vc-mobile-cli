@@ -2,7 +2,7 @@ import { TouchableOpacity } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ImageBackground`
     flex: 1;
     background: #0E0E0E;
     padding: 25px;

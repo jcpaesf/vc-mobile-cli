@@ -46,6 +46,7 @@ export const TitleSignInBold = styled.Text`
     font-family: 'RoundedMplus1c-Black';
     font-size: ${width <= 320 ? 19 : 21}px;
     color: #FFF;
+    margin-top: 100px;
 `;
 
 export const TextInput = styled.Text`

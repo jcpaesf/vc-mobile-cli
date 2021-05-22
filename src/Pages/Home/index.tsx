@@ -40,12 +40,14 @@ import {
   ContainerNfc,
   Camera,
   ContainerButtonBarCode,
+  Background
 } from './styles';
 
 import loadingAnimation from '../../assets/animations/loadingVs.json';
 import logoImg from '../../assets/images/logoVc.png';
 import ProductListItem from '../../components/ProductItemList';
 import InputNfc from '../../components/InputNfc';
+import backgroundImg from '../../assets/images/backgroundSignUp.png';
 
 const { width } = Dimensions.get('window');
 
@@ -106,10 +108,13 @@ const Home: React.FC = () => {
   const [hasCameraAccess, setHasCameraAccess] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
   const [qrCodeValue, setQrCodeValue] = useState('');
+  const [needPassword, setNeedPassword] = useState(false)
+  const [nfcId, setNfcId] = useState('')
   const scrollX = useRef(new Animated.Value(0)).current;
   const { user, signOut } = useAuth();
   const formRef = useRef<FormHandles>(null);
   const formNfc = useRef<FormHandles>(null);
+  const formPassword = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const inputNfcRef = useRef<TextInput>(null);
   const isFocused = useIsFocused();
@@ -222,12 +227,20 @@ const Home: React.FC = () => {
 
   const handleAddNfc = useCallback(
     async (data: AddProductProps) => {
-      setShowAddProduct(true);
+      setNfcId(data.nfc_id)
 
       try {
-        await api.patch(`/passwords/inactive/${data.password}/pass`);
-        await api.patch(`/productstagsnfc/inactive/${data.nfc_id}/nfc`);
+        const response = await api.get<{ need_password: boolean }>(`/products/${data.nfc_id}/need-password`);
 
+        if (response.data.need_password) {
+          setNeedPassword(true);
+
+          return;
+        }
+
+        setShowAddProduct(true);
+        await api.patch(`/productstagsnfc/inactive/${data.nfc_id}/nfc`);
+        
         api
           .post('/productsuser', data)
           .then(async (apiResponse) => {
@@ -261,14 +274,14 @@ const Home: React.FC = () => {
 
             Alert.alert(
               'Mensagem',
-              'Erro ao adicionar produto. Tente novamente mais tarde.',
+              (e.response?.data ? e.response.data.message : 'Erro ao adicionar seu produto'),
             );
           });
       } catch (e) {
         setShowAddProduct(false);
         Alert.alert(
           'Mensagem',
-          'Erro ao adicionar produto. Tente novamente mais tarde.',
+          (e.response?.data ? e.response.data.message : 'Erro ao adicionar seu produto'),
         );
       }
     },
@@ -331,6 +344,73 @@ const Home: React.FC = () => {
     [setHasCameraPermission, setQrCodeValue],
   );
 
+  const handleAddPassword = useCallback(
+    async (data: AddProductProps) => {
+
+      try {
+        setShowAddProduct(true);
+
+        await api.patch(`/passwords/inactive/${data.password}/pass`);
+        await api.patch(`/productstagsnfc/inactive/${nfcId}/nfc`);
+
+        api
+          .post('/productsuser', {
+            nfc_id: nfcId
+          })
+          .then(async (apiResponse) => {
+            setShowAddProduct(false);
+            setVisibleNfc(false);
+
+            setProductsUserFilter([...productsUserFilter, apiResponse.data]);
+            setProductsList([...productsUserFilter, apiResponse.data]);
+            setProductsUser([
+              {
+                id: 'empty-left',
+                product_id: '',
+                product: {} as Product,
+                tag: [],
+                content: 0,
+              },
+              ...productsUserFilter,
+              apiResponse.data,
+              {
+                id: 'empty-right',
+                product_id: '',
+                product: {} as Product,
+                tag: [],
+                content: 0,
+              },
+            ]);
+          })
+          .catch((e) => {
+            setShowAddProduct(false);
+            setVisibleNfc(false);
+
+            Alert.alert(
+              'Mensagem',
+              e.response.data,
+            );
+          });
+      } catch (e) {
+        setShowAddProduct(false);
+
+        Alert.alert(
+          'Mensagem',
+          e.response.data,
+        );
+      }
+    },
+    [
+      setShowAddProduct,
+      setVisibleNfc,
+      setProductsUser,
+      setProductsList,
+      setProductsUserFilter,
+      productsUserFilter,
+      nfcId
+    ],
+  );
+
   if (hasCameraPermission) {
     return (
       <Container listView={false}>
@@ -356,8 +436,8 @@ const Home: React.FC = () => {
   }
 
   return (
-    <Container listView={listView}>
-      {!listView && <Backdrop products={productsUser} scrollX={scrollX} />}
+    <Background source={backgroundImg} resizeMode="cover">
+      {/* {!listView && <Backdrop products={productsUser} scrollX={scrollX} />} */}
 
       <ContainerHeader opacityContainer={opacityContainer}>
         <Header>
@@ -408,17 +488,25 @@ const Home: React.FC = () => {
               <InputNfc
                 ref={inputNfcRef}
                 name="nfc_id"
+                onFocus={() => { setNeedPassword(false) }}
                 initialValue={qrCodeValue}
                 placeholder="Informe o NFC ou o QRCode"
                 returnKeyType="next"
                 onSubmitEditing={() => {
-                  passwordInputRef.current?.focus();
+                  formNfc.current?.submitForm();
                 }}
               />
               <TouchableOpacity onPress={handleOpenCamera}>
                 <Camera name="camera" size={30} color="#FFF" />
               </TouchableOpacity>
             </ContainerNfc>
+          </Form>
+        )}
+        {(visibleNfc && needPassword) && (
+          <Form
+            ref={formPassword}
+            onSubmit={handleAddPassword}
+            style={{ marginHorizontal: 25 }}>
             <InputNfc
               ref={passwordInputRef}
               name="password"
@@ -426,7 +514,7 @@ const Home: React.FC = () => {
               placeholder="Informe o password"
               returnKeyType="send"
               onSubmitEditing={() => {
-                formNfc.current?.submitForm();
+                formPassword.current?.submitForm();
               }}
             />
           </Form>
@@ -515,7 +603,7 @@ const Home: React.FC = () => {
           </ContainerModal>
         )}
       </Modal>
-    </Container>
+    </Background>
   );
 };
 

@@ -14,10 +14,11 @@ import {
     ButtonScan,
     ButtonScanAndroid,
     TextSignIn,
-    TextScan
+    TextScan,
+    TitleTogether,
 } from './styles';
 
-import backgroundImg from '../../assets/images/background.png';
+import backgroundImg from '../../assets/images/backgroundSignIn.png';
 import logoImg from '../../assets/images/logoVc.png';
 
 const Login: React.FC = () => {
@@ -25,10 +26,10 @@ const Login: React.FC = () => {
 
     return (
         <Background source={backgroundImg} resizeMode="cover">
-            <ImageLogo source={logoImg} resizeMode="contain" />
             <TitleWelcome>Bem-vindo(a) ao</TitleWelcome>
             <TitleWelcomeBold>Vest Connect</TitleWelcomeBold>
             <SubTitle>Um novo modelo de interatividade</SubTitle>
+            <TitleTogether>TOGETHER{'\n'}WE RISE</TitleTogether>
             <ContainerButton>
                 {Platform.OS === 'ios' ?
                     <>

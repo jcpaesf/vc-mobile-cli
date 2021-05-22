@@ -23,7 +23,7 @@ export const Container = styled.View<TextInputProps>`
         props.isErrored &&
         css`
             border-color: #c53030;
-            opacity: 1
+            opacity: 1;
         `
     }
 

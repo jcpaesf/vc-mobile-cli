@@ -8,6 +8,7 @@ import api from '../../services/api';
 import UserNotificationItem, {
   INotificationProps
 } from '../../components/UserNotificationItem';
+import backgroundImg from '../../assets/images/backgroundSignUp.png';
 
 import {
   Container,
@@ -30,7 +31,7 @@ const UserNotifications: React.FC = () => {
   }, []);
 
   return (
-    <Container>
+    <Container resizeMode="cover" source={backgroundImg}>
       <Header style={{ marginTop: 25 }}>
         <TouchableOpacity onPress={() => goBack()} >
           <Feather name='chevron-left' size={25} color='#FFF' />

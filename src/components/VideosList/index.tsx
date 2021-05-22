@@ -56,7 +56,7 @@ const VideosList: React.FC<ItemProps> = ({ id, type }) => {
             {productContent.map(content => {
                 return (
                     <TouchableOpacity key={content.id} onPress={() => { handleNavigateVideos(content.id, content.type) }}>
-                        <Container source={{ uri: content.background_url }} imageStyle={{ opacity: 0.5 }} >
+                        <Container source={{ uri: content.background_url }} imageStyle={{ opacity: 0.8 }} >
                             <ContainerContent>
                                 <Title>{content.description}</Title>
                                 <Feather name="chevron-right" color="#FFF" size={20} />

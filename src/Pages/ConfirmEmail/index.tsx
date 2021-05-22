@@ -20,7 +20,7 @@ import {
 	TextSignIn
 } from './styles';
 
-import backgroundImg from '../../assets/images/background.png';
+import backgroundImg from '../../assets/images/backgroundSignUp.png';
 import sendEmailAnimation from '../../assets/animations/confirmemail.json';
 
 const ConfirmEmail: React.FC = () => {

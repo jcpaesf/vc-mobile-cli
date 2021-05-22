@@ -89,3 +89,19 @@ export const TextDescriptionModal = styled.Text`
     margin-top: 10px;
     margin-bottom: 10px;
 `;
+
+export const SubmitButton = styled(TouchableOpacity)`
+    padding: 20px;
+    height: 61px;
+    border-radius: 30px;
+    background: #272727;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const TextSubmitButton = styled.Text`
+    font-family: 'RoundedMplus1c-ExtraBold';
+    font-size: 15px;
+    color: #FFF;
+`;

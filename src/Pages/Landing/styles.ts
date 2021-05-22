@@ -12,15 +12,16 @@ export const Background = styled.ImageBackground`
 `;
 
 export const ImageLogo = styled.Image`
-    width: 48px;
-    height: 30px;
-    margin-bottom: 40px;
+    width: 63px;
+    height: 45px;
+    margin-bottom: 25px;
 `;
 
 export const TitleWelcome = styled.Text`
     font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 21 : 23}px;
     color: white;
+    margin-top: 50px;
 `;
 
 export const TitleWelcomeBold = styled.Text`
@@ -33,8 +34,15 @@ export const SubTitle = styled.Text`
     font-family: 'RoundedMplus1c-Regular';
     font-size: ${width <= 320 ? 12 : 14}px;
     color: white;
+    margin-bottom: 40px;
+`;
+
+export const TitleTogether = styled.Text`
+    font-family: 'RoundedMplus1c-Black';
+    font-size: ${width <= 320 ? 20 : 24}px;
+    color: white;
     margin-top: 10px;
-    margin-bottom: 200px;
+    margin-bottom: 150px;
 `;
 
 export const ContainerButton = styled.View`

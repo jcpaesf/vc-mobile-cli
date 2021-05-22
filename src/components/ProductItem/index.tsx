@@ -4,57 +4,57 @@ import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import ModalProduct from '../ModalProduct';
 import {
-    ContainerContent,
-    ContainerButton,
-    ButtonAccess,
-    ContainerImg,
-    Image,
-    ContainerProduct,
-    TextAcess,
-    TextContent,
-    TextDate,
-    TextProduct,
-    TextTypeProduct,
-    TextValidate
+	ContainerContent,
+	ContainerButton,
+	ButtonAccess,
+	ContainerImg,
+	Image,
+	ContainerProduct,
+	TextAcess,
+	TextContent,
+	TextDate,
+	TextProduct,
+	TextTypeProduct,
+	TextValidate
 } from './styles';
 
 interface User {
-    nickname: string;
-    avatar: string;
-    avatar_url: string;
+	nickname: string;
+	avatar: string;
+	avatar_url: string;
 }
 
 interface Product {
-    title: string;
-    subtitle: string;
-    nfc_id: string;
-    validate: Date;
-    avatar: string;
-    background: string;
-    avatar_url: string;
-    background_url: string;
-    description: string;
-    user: User;
+	title: string;
+	subtitle: string;
+	nfc_id: string;
+	validate: Date;
+	avatar: string;
+	background: string;
+	avatar_url: string;
+	background_url: string;
+	description: string;
+	user: User;
 }
 
 interface Tag {
-    id: string;
-    description: string;
+	id: string;
+	description: string;
 }
 
 interface ResponseProductUser {
-    id: string;
-    product_id: string;
-    product: Product;
-    tag: Tag[];
-    content: number;
+	id: string;
+	product_id: string;
+	product: Product;
+	tag: Tag[];
+	content: number;
 }
 
 interface ProductProps {
-    item: ResponseProductUser;
-    translateY: Animated.AnimatedInterpolation;
-    opacity: Animated.AnimatedInterpolation;
-    hookOpacity(opacity: boolean): void;
+	item: ResponseProductUser;
+	translateY: Animated.AnimatedInterpolation;
+	opacity: Animated.AnimatedInterpolation;
+	hookOpacity(opacity: boolean): void;
 }
 
 const { width } = Dimensions.get('window');
@@ -63,52 +63,52 @@ const ITEM_SIZE = width * 0.85;
 const EMPTY_ITEM_SIZE = (width - ITEM_SIZE) / 2;
 
 const ProductItem: React.FC<ProductProps> = ({ item, translateY, opacity, hookOpacity }) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const dateValidate = new Date(item.product.validate);
-    let dateFormat = '';
+	const [modalVisible, setModalVisible] = useState(false);
+	const dateValidate = new Date(item.product.validate);
+	let dateFormat = '';
 
-    if (item.product_id) {
-        dateFormat = format(dateValidate, 'dd/MM/yyyy', { locale: ptBR });
-    }
+	if (item.product_id) {
+		dateFormat = format(dateValidate, 'dd/MM/yyyy', { locale: ptBR });
+	}
 
-    const handleModalVisible = useCallback(() => {
-        hookOpacity(!modalVisible);
-        setModalVisible(!modalVisible);
-    }, [hookOpacity, modalVisible, setModalVisible]);
+	const handleModalVisible = useCallback(() => {
+		hookOpacity(!modalVisible);
+		setModalVisible(!modalVisible);
+	}, [hookOpacity, modalVisible, setModalVisible]);
 
-    if (!item.product.avatar_url) {
-        return <View style={{ width: EMPTY_ITEM_SIZE }} />;
-    }
+	if (!item.product.avatar_url) {
+		return <View style={{ width: EMPTY_ITEM_SIZE }} />;
+	}
 
-    return (
-        <>
-            <ModalProduct hookCloseModal={handleModalVisible} item={item} visible={modalVisible} />
+	return (
+		<>
+			<ModalProduct hookCloseModal={handleModalVisible} item={item} visible={modalVisible} />
 
-            <View style={{ width: ITEM_SIZE, marginTop: 10 }}>
-                <ContainerContent style={{ padding: SPACING * 2, marginHorizontal: SPACING, opacity, transform: [{ translateY }] }}>
-                    <ContainerImg>
-                        <Image source={{ uri: item.product.avatar_url }} borderRadius={15} resizeMode='cover' />
-                    </ContainerImg>
+			<View style={{ width: ITEM_SIZE, marginTop: 10 }}>
+				<ContainerContent style={{ padding: SPACING * 2, marginHorizontal: SPACING, opacity, transform: [{ translateY }] }}>
+					<ContainerImg>
+						<Image source={{ uri: item.product.avatar_url }} borderRadius={15} resizeMode='cover' />
+					</ContainerImg>
 
-                    <ContainerProduct>
-                        <TextProduct>{item.product.user.nickname}</TextProduct>
-                        <TextTypeProduct>{item.product.title}</TextTypeProduct>
-                        <View style={{ width: 200, flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <TextContent>{item.content ? 'CONTEÚDO NOVO\nDISPONÍVEL' : 'NENHUM\nCONTEÚDO NOVO'}</TextContent>
-                            <TextValidate>VÁLIDO ATÉ{'\n'}<TextDate>{dateFormat}</TextDate></TextValidate>
-                        </View>
+					<ContainerProduct>
+						<TextProduct>{item.product.user.nickname}</TextProduct>
+						<TextTypeProduct>{item.product.title}</TextTypeProduct>
+						<View style={{ width: 200, flexDirection: 'row', justifyContent: 'space-between' }}>
+							<TextContent>{item.content ? 'CONTEÚDO NOVO\nDISPONÍVEL' : 'NENHUM\nCONTEÚDO NOVO'}</TextContent>
+							<TextValidate>VÁLIDO ATÉ{'\n'}<TextDate>{dateFormat}</TextDate></TextValidate>
+						</View>
 
-                        <ContainerButton>
-                            <ButtonAccess onPress={handleModalVisible}>
-                                <TextAcess>Acessar</TextAcess>
-                            </ButtonAccess>
-                        </ContainerButton>
-                    </ContainerProduct>
-                </ContainerContent>
-            </View>
+						<ContainerButton>
+							<ButtonAccess onPress={handleModalVisible}>
+								<TextAcess>Acessar</TextAcess>
+							</ButtonAccess>
+						</ContainerButton>
+					</ContainerProduct>
+				</ContainerContent>
+			</View>
 
-        </>
-    );
+		</>
+	);
 };
 
 export default ProductItem;
